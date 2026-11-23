@@ -37,10 +37,23 @@ final class Speech: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         return voices.max { $0.quality.rawValue < $1.quality.rawValue } ?? AVSpeechSynthesisVoice(language: code)
     }
 
-    /// Speaks one piece of text, interrupting anything playing.
+    /// Speaks one piece of text, interrupting anything playing. A single Russian word
+    /// uses the recorded word pack when it has it.
     func say(_ text: String, lang: Lang = .russian, id: String? = nil, slow: Bool = false) {
         stop()
+        if lang == .russian, let url = WordAudio.url(for: text) {
+            playLocal(url)
+            return
+        }
         enqueue(text, lang: lang, id: id ?? UUID().uuidString, slow: slow)
+    }
+
+    private var local: AVAudioPlayer?
+
+    func playLocal(_ url: URL) {
+        activateAudio()
+        local = try? AVAudioPlayer(contentsOf: url)
+        local?.play()
     }
 
     /// Speaks several pieces one after the other (e.g. the lines of a story).
@@ -62,6 +75,7 @@ final class Speech: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         queue.removeAll()
         if synth.isSpeaking { synth.stopSpeaking(at: .immediate) }
         player?.pause()
+        local?.stop()
         spokenRange = nil
         speakingID = nil
     }
@@ -97,5 +111,19 @@ final class Speech: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         Task { @MainActor in
             self.spokenRange = nil
         }
+    }
+}
+
+/// Offline word recordings (Silero), made by tools/make_word_audio.py.
+enum WordAudio {
+    static let folder = Bundle.main.url(forResource: "WordAudio", withExtension: nil)
+
+    /// File for a single word, looked up by its dictionary key.
+    static func url(for text: String) -> URL? {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines.union(.punctuationCharacters))
+        guard let folder, !trimmed.isEmpty, !trimmed.contains(" ") else { return nil }
+        let name = RussianText.key(trimmed).utf8.map { String(format: "%02x", $0) }.joined()
+        let url = folder.appendingPathComponent(name + ".m4a")
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
     }
 }

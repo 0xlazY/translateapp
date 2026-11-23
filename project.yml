@@ -7,7 +7,7 @@ options:
     iOS: "18.0"
   createIntermediateGroups: true
   # The dictionary is committed compressed (GitHub file limits); unpack it before generating.
-  preGenCommand: mkdir -p Pandouchka/Resources && gunzip -c Data/dictionary.sqlite.gz > Pandouchka/Resources/dictionary.sqlite
+  preGenCommand: mkdir -p Pandouchka/Resources Pandouchka/WordAudio && gunzip -c Data/dictionary.sqlite.gz > Pandouchka/Resources/dictionary.sqlite
 settings:
   base:
     SWIFT_VERSION: "5.0"
@@ -23,6 +23,12 @@ targets:
     platform: iOS
     sources:
       - path: Pandouchka
+        excludes:
+          - "WordAudio/**"
+      # Thousands of small files: copied as one folder instead of listed one by one.
+      - path: Pandouchka/WordAudio
+        type: folder
+        optional: true
     dependencies:
       - package: PandouchkaCore
       - sdk: libsqlite3.tbd

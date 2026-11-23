@@ -2,12 +2,18 @@ import SwiftData
 import SwiftUI
 import PandouchkaCore
 
-/// Plays the best pronunciation available: a native Wiktionary recording when online,
-/// otherwise the system voice.
+/// Plays the best pronunciation available: the offline word pack, then a native
+/// Wiktionary recording (online), then the system voice.
 @MainActor
 enum Pronounce {
     static func word(_ entry: DictEntry) {
-        if let url = entry.audio { Speech.shared.play(url: url) } else { Speech.shared.say(entry.word, slow: true) }
+        if let url = WordAudio.url(for: entry.key) {
+            Speech.shared.playLocal(url)
+        } else if let url = entry.audio {
+            Speech.shared.play(url: url)
+        } else {
+            Speech.shared.say(entry.word, slow: true)
+        }
     }
 }
 
