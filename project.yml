@@ -1,0 +1,60 @@
+# Source of truth for the Xcode project. Pandouchka.xcodeproj is generated from this
+# by XcodeGen and is not committed. Run: xcodegen generate
+name: Pandouchka
+options:
+  bundleIdPrefix: io.github.lazy
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  # The dictionary is committed compressed (GitHub file limits); unpack it before generating.
+  preGenCommand: gunzip -c Data/dictionary.sqlite.gz > Pandouchka/Resources/dictionary.sqlite
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+packages:
+  PandouchkaCore:
+    path: Packages/PandouchkaCore
+targets:
+  Pandouchka:
+    type: application
+    platform: iOS
+    sources:
+      - path: Pandouchka
+    dependencies:
+      - package: PandouchkaCore
+      - sdk: libsqlite3.tbd
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.lazy.pandouchka
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: Pandouchka/Info.plist
+      properties:
+        CFBundleDisplayName: Pandouchka
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        ITSAppUsesNonExemptEncryption: false
+schemes:
+  Pandouchka:
+    build:
+      targets:
+        Pandouchka: all
+    run:
+      config: Debug
+    archive:
+      config: Release

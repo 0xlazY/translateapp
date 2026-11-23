@@ -1,0 +1,2020 @@
+{
+ "stories": [
+  {
+   "id": "privet-kazan",
+   "level": "A1",
+   "order": 1,
+   "title": "Привет, Казань!",
+   "titleFr": "Bonjour, Kazan !",
+   "emoji": "🏙️",
+   "theme": "blue",
+   "summary": "Camille, une étudiante de Lyon, arrive à Kazan et rencontre Nika.",
+   "lines": [
+    {
+     "ru": "Меня зовут Камилла.",
+     "fr": "Je m'appelle Camille."
+    },
+    {
+     "ru": "Я из Франции, из Лиона.",
+     "fr": "Je viens de France, de Lyon."
+    },
+    {
+     "ru": "Сейчас я живу в Казани.",
+     "fr": "Maintenant, je vis à Kazan."
+    },
+    {
+     "ru": "Казань — большой и красивый город.",
+     "fr": "Kazan est une grande et belle ville."
+    },
+    {
+     "ru": "Здесь я учусь в университете.",
+     "fr": "Ici, j'étudie à l'université."
+    },
+    {
+     "ru": "Я изучаю русский язык.",
+     "fr": "J'apprends le russe.",
+     "paragraph": true
+    },
+    {
+     "ru": "Русский язык трудный, но интересный.",
+     "fr": "Le russe est difficile, mais intéressant."
+    },
+    {
+     "ru": "У меня есть подруга. Её зовут Ника.",
+     "fr": "J'ai une amie. Elle s'appelle Nika."
+    },
+    {
+     "ru": "Ника — студентка. Она тоже учится в университете.",
+     "fr": "Nika est étudiante. Elle aussi étudie à l'université."
+    },
+    {
+     "ru": "Ника говорит по-французски, но очень медленно.",
+     "fr": "Nika parle français, mais très lentement.",
+     "paragraph": true
+    },
+    {
+     "ru": "А я говорю по-русски, но тоже медленно!",
+     "fr": "Et moi, je parle russe, mais lentement aussi !"
+    },
+    {
+     "ru": "Мы говорим и смеёмся.",
+     "fr": "Nous parlons et nous rions."
+    },
+    {
+     "ru": "Сегодня у нас первый урок.",
+     "fr": "Aujourd'hui, nous avons notre premier cours."
+    },
+    {
+     "ru": "«Привет, Казань!» — говорю я.",
+     "fr": "« Bonjour, Kazan ! » dis-je."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "город",
+     "fr": "ville"
+    },
+    {
+     "ru": "учиться",
+     "fr": "étudier"
+    },
+    {
+     "ru": "подруга",
+     "fr": "amie"
+    },
+    {
+     "ru": "язык",
+     "fr": "langue"
+    },
+    {
+     "ru": "медленно",
+     "fr": "lentement"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Откуда Камилла?",
+     "fr": "D'où vient Camille ?",
+     "options": [
+      "Из Москвы",
+      "Из Лиона",
+      "Из Казани"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Как зовут подругу Камиллы?",
+     "fr": "Comment s'appelle l'amie de Camille ?",
+     "options": [
+      "Маша",
+      "Ника",
+      "Лиза"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Как Ника говорит по-французски?",
+     "fr": "Comment Nika parle-t-elle français ?",
+     "options": [
+      "Очень быстро",
+      "Очень медленно",
+      "Громко"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "kvartira",
+   "level": "A1",
+   "order": 2,
+   "title": "Наша квартира",
+   "titleFr": "Notre appartement",
+   "emoji": "🏠",
+   "theme": "amber",
+   "summary": "Camille fait visiter l'appartement qu'elle partage avec Nika.",
+   "lines": [
+    {
+     "ru": "Мы с Никой живём в квартире.",
+     "fr": "Nika et moi vivons dans un appartement."
+    },
+    {
+     "ru": "Квартира небольшая, но уютная.",
+     "fr": "L'appartement est petit, mais confortable."
+    },
+    {
+     "ru": "Она на пятом этаже.",
+     "fr": "Il est au cinquième étage."
+    },
+    {
+     "ru": "В квартире две комнаты, кухня и ванная.",
+     "fr": "Dans l'appartement, il y a deux chambres, une cuisine et une salle de bains."
+    },
+    {
+     "ru": "Моя комната маленькая.",
+     "fr": "Ma chambre est petite.",
+     "paragraph": true
+    },
+    {
+     "ru": "Там есть кровать, стол и шкаф.",
+     "fr": "Il y a un lit, une table et une armoire."
+    },
+    {
+     "ru": "На столе лежат мои книги.",
+     "fr": "Sur la table, il y a mes livres."
+    },
+    {
+     "ru": "Окно большое, и из окна видно реку.",
+     "fr": "La fenêtre est grande, et de la fenêtre on voit la rivière."
+    },
+    {
+     "ru": "Кухня — моё любимое место.",
+     "fr": "La cuisine est mon endroit préféré.",
+     "paragraph": true
+    },
+    {
+     "ru": "Там мы пьём чай и разговариваем.",
+     "fr": "Là, nous buvons du thé et nous discutons."
+    },
+    {
+     "ru": "Вечером на кухне тепло и светло.",
+     "fr": "Le soir, il fait chaud et clair dans la cuisine."
+    },
+    {
+     "ru": "Лифт в доме старый и часто не работает.",
+     "fr": "L'ascenseur de l'immeuble est vieux et souvent en panne.",
+     "paragraph": true
+    },
+    {
+     "ru": "Поэтому мы ходим пешком.",
+     "fr": "C'est pourquoi nous montons à pied."
+    },
+    {
+     "ru": "Пять этажей — это хороший спорт!",
+     "fr": "Cinq étages, c'est un bon sport !"
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "квартира",
+     "fr": "appartement"
+    },
+    {
+     "ru": "комната",
+     "fr": "chambre, pièce"
+    },
+    {
+     "ru": "кухня",
+     "fr": "cuisine"
+    },
+    {
+     "ru": "окно",
+     "fr": "fenêtre"
+    },
+    {
+     "ru": "этаж",
+     "fr": "étage"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "На каком этаже квартира?",
+     "fr": "À quel étage est l'appartement ?",
+     "options": [
+      "На втором",
+      "На пятом",
+      "На десятом"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что лежит на столе?",
+     "fr": "Qu'y a-t-il sur la table ?",
+     "options": [
+      "Книги",
+      "Кошка",
+      "Хлеб"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Почему девушки ходят пешком?",
+     "fr": "Pourquoi les filles montent-elles à pied ?",
+     "options": [
+      "Лифт часто не работает",
+      "Они не любят лифт",
+      "В доме нет лифта"
+     ],
+     "answer": 0
+    }
+   ]
+  },
+  {
+   "id": "kot-pirozhok",
+   "level": "A1",
+   "order": 3,
+   "title": "Кот Пирожок",
+   "titleFr": "Le chat Pirojok",
+   "emoji": "🐈",
+   "theme": "red",
+   "summary": "Le voisin, le vieux Fiodor, a un chat roux très paresseux… et très gourmand.",
+   "lines": [
+    {
+     "ru": "Рядом с нами живёт дедушка Фёдор.",
+     "fr": "À côté de chez nous vit le vieux Fiodor."
+    },
+    {
+     "ru": "Ему восемьдесят лет.",
+     "fr": "Il a quatre-vingts ans."
+    },
+    {
+     "ru": "У него есть кот. Кота зовут Пирожок.",
+     "fr": "Il a un chat. Le chat s'appelle Pirojok."
+    },
+    {
+     "ru": "Пирожок большой, рыжий и очень ленивый.",
+     "fr": "Pirojok est gros, roux et très paresseux."
+    },
+    {
+     "ru": "Он весь день спит на диване.",
+     "fr": "Il dort toute la journée sur le canapé."
+    },
+    {
+     "ru": "Но вечером Пирожок не спит.",
+     "fr": "Mais le soir, Pirojok ne dort pas.",
+     "paragraph": true
+    },
+    {
+     "ru": "Вечером он гуляет по дому.",
+     "fr": "Le soir, il se promène dans l'immeuble."
+    },
+    {
+     "ru": "Он знает, где живём мы.",
+     "fr": "Il sait où nous habitons."
+    },
+    {
+     "ru": "Он сидит у нашей двери и ждёт.",
+     "fr": "Il s'assoit devant notre porte et attend."
+    },
+    {
+     "ru": "Почему? Потому что Ника даёт ему рыбу!",
+     "fr": "Pourquoi ? Parce que Nika lui donne du poisson !"
+    },
+    {
+     "ru": "«Ника, это не твой кот», — говорю я.",
+     "fr": "« Nika, ce n'est pas ton chat », dis-je.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Я знаю, — отвечает Ника. — Но он такой милый!»",
+     "fr": "« Je sais, répond Nika. Mais il est si mignon ! »"
+    },
+    {
+     "ru": "Дедушка Фёдор не сердится.",
+     "fr": "Le vieux Fiodor ne se fâche pas."
+    },
+    {
+     "ru": "Он смеётся: «Пирожок любит всех!»",
+     "fr": "Il rit : « Pirojok aime tout le monde ! »"
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "кот",
+     "fr": "chat"
+    },
+    {
+     "ru": "ленивый",
+     "fr": "paresseux"
+    },
+    {
+     "ru": "спать",
+     "fr": "dormir"
+    },
+    {
+     "ru": "дверь",
+     "fr": "porte"
+    },
+    {
+     "ru": "рыба",
+     "fr": "poisson"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Сколько лет дедушке Фёдору?",
+     "fr": "Quel âge a le vieux Fiodor ?",
+     "options": [
+      "Восемьдесят",
+      "Сорок",
+      "Шестьдесят"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Где спит Пирожок днём?",
+     "fr": "Où dort Pirojok pendant la journée ?",
+     "options": [
+      "На кровати",
+      "На диване",
+      "На окне"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что Ника даёт коту?",
+     "fr": "Que donne Nika au chat ?",
+     "options": [
+      "Молоко",
+      "Мясо",
+      "Рыбу"
+     ],
+     "answer": 2
+    }
+   ]
+  },
+  {
+   "id": "zavtrak",
+   "level": "A1",
+   "order": 4,
+   "title": "Завтрак",
+   "titleFr": "Le petit déjeuner",
+   "emoji": "🥞",
+   "theme": "amber",
+   "summary": "Kacha, blinis et thé au citron : le petit déjeuner à la russe.",
+   "lines": [
+    {
+     "ru": "Утром я всегда очень хочу есть.",
+     "fr": "Le matin, j'ai toujours très faim."
+    },
+    {
+     "ru": "Во Франции я ем на завтрак круассан и пью кофе.",
+     "fr": "En France, au petit déjeuner, je mange un croissant et je bois un café."
+    },
+    {
+     "ru": "В России завтрак другой.",
+     "fr": "En Russie, le petit déjeuner est différent."
+    },
+    {
+     "ru": "Ника готовит кашу.",
+     "fr": "Nika prépare de la kacha.",
+     "paragraph": true
+    },
+    {
+     "ru": "Каша горячая и вкусная.",
+     "fr": "La kacha est chaude et délicieuse."
+    },
+    {
+     "ru": "Ещё на столе есть хлеб, сыр и масло.",
+     "fr": "Sur la table, il y a aussi du pain, du fromage et du beurre."
+    },
+    {
+     "ru": "Иногда Ника делает блины.",
+     "fr": "Parfois, Nika fait des blinis.",
+     "paragraph": true
+    },
+    {
+     "ru": "Блины тонкие, как французские блинчики.",
+     "fr": "Les blinis sont fins, comme les crêpes françaises."
+    },
+    {
+     "ru": "Мы едим блины со сметаной или с вареньем.",
+     "fr": "Nous mangeons les blinis avec de la crème fraîche ou de la confiture."
+    },
+    {
+     "ru": "Я пью чай с лимоном, а Ника пьёт кофе.",
+     "fr": "Je bois du thé au citron, et Nika boit du café.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Кто пьёт кофе утром — француженка или русская?» — смеётся Ника.",
+     "fr": "« Qui boit du café le matin, la Française ou la Russe ? » rit Nika."
+    },
+    {
+     "ru": "Сегодня суббота, и мы завтракаем долго.",
+     "fr": "Aujourd'hui, c'est samedi, et nous prenons notre petit déjeuner sans nous presser."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "завтрак",
+     "fr": "petit déjeuner"
+    },
+    {
+     "ru": "каша",
+     "fr": "kacha, bouillie"
+    },
+    {
+     "ru": "хлеб",
+     "fr": "pain"
+    },
+    {
+     "ru": "блины",
+     "fr": "blinis, crêpes"
+    },
+    {
+     "ru": "варенье",
+     "fr": "confiture"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Что готовит Ника утром?",
+     "fr": "Que prépare Nika le matin ?",
+     "options": [
+      "Кашу",
+      "Суп",
+      "Пиццу"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "С чем девушки едят блины?",
+     "fr": "Avec quoi les filles mangent-elles les blinis ?",
+     "options": [
+      "С мясом",
+      "Со сметаной или с вареньем",
+      "С рыбой"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что пьёт Камилла?",
+     "fr": "Que boit Camille ?",
+     "options": [
+      "Кофе",
+      "Молоко",
+      "Чай с лимоном"
+     ],
+     "answer": 2
+    }
+   ]
+  },
+  {
+   "id": "na-rynke",
+   "level": "A1",
+   "order": 5,
+   "title": "На рынке",
+   "titleFr": "Au marché",
+   "emoji": "🍎",
+   "theme": "green",
+   "summary": "Acheter des pommes, demander un prix… et recevoir un cadeau.",
+   "lines": [
+    {
+     "ru": "В воскресенье мы идём на рынок.",
+     "fr": "Dimanche, nous allons au marché."
+    },
+    {
+     "ru": "Рынок недалеко от дома.",
+     "fr": "Le marché n'est pas loin de la maison."
+    },
+    {
+     "ru": "Там много людей и много продуктов.",
+     "fr": "Il y a beaucoup de monde et beaucoup de produits."
+    },
+    {
+     "ru": "Я хочу купить яблоки.",
+     "fr": "Je veux acheter des pommes.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Сколько стоят яблоки?» — спрашиваю я.",
+     "fr": "« Combien coûtent les pommes ? » je demande."
+    },
+    {
+     "ru": "«Сто рублей килограмм», — отвечает продавщица.",
+     "fr": "« Cent roubles le kilo », répond la vendeuse."
+    },
+    {
+     "ru": "«Дайте, пожалуйста, два килограмма».",
+     "fr": "« Donnez-m'en deux kilos, s'il vous plaît. »"
+    },
+    {
+     "ru": "Ника покупает картошку, морковь и лук.",
+     "fr": "Nika achète des pommes de terre, des carottes et des oignons.",
+     "paragraph": true
+    },
+    {
+     "ru": "Ещё мы покупаем мёд.",
+     "fr": "Nous achetons aussi du miel."
+    },
+    {
+     "ru": "Мёд здесь очень хороший.",
+     "fr": "Ici, le miel est très bon."
+    },
+    {
+     "ru": "Продавщица говорит: «Вы не русская? Откуда вы?»",
+     "fr": "La vendeuse dit : « Vous n'êtes pas russe ? D'où venez-vous ? »",
+     "paragraph": true
+    },
+    {
+     "ru": "«Я из Франции», — отвечаю я.",
+     "fr": "« Je viens de France », je réponds."
+    },
+    {
+     "ru": "«Ой, Франция! Париж! Возьмите яблоко в подарок!»",
+     "fr": "« Oh, la France ! Paris ! Prenez une pomme en cadeau ! »"
+    },
+    {
+     "ru": "Я говорю: «Спасибо большое!»",
+     "fr": "Je dis : « Merci beaucoup ! »"
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "рынок",
+     "fr": "marché"
+    },
+    {
+     "ru": "купить",
+     "fr": "acheter"
+    },
+    {
+     "ru": "сколько стоит",
+     "fr": "combien ça coûte"
+    },
+    {
+     "ru": "яблоко",
+     "fr": "pomme"
+    },
+    {
+     "ru": "подарок",
+     "fr": "cadeau"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Когда девушки идут на рынок?",
+     "fr": "Quand les filles vont-elles au marché ?",
+     "options": [
+      "В субботу",
+      "В воскресенье",
+      "В понедельник"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Сколько стоит килограмм яблок?",
+     "fr": "Combien coûte un kilo de pommes ?",
+     "options": [
+      "Сто рублей",
+      "Двести рублей",
+      "Десять рублей"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Что продавщица даёт Камилле в подарок?",
+     "fr": "Que donne la vendeuse à Camille en cadeau ?",
+     "options": [
+      "Мёд",
+      "Яблоко",
+      "Морковь"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "moy-den",
+   "level": "A1",
+   "order": 6,
+   "title": "Мой день",
+   "titleFr": "Ma journée",
+   "emoji": "⏰",
+   "theme": "violet",
+   "summary": "Du réveil au coucher : une journée d'étudiante à Kazan.",
+   "lines": [
+    {
+     "ru": "Я встаю в семь часов.",
+     "fr": "Je me lève à sept heures."
+    },
+    {
+     "ru": "Я умываюсь, одеваюсь и завтракаю.",
+     "fr": "Je me lave, je m'habille et je prends mon petit déjeuner."
+    },
+    {
+     "ru": "В восемь часов я еду в университет на автобусе.",
+     "fr": "À huit heures, je vais à l'université en bus."
+    },
+    {
+     "ru": "Занятия начинаются в девять.",
+     "fr": "Les cours commencent à neuf heures.",
+     "paragraph": true
+    },
+    {
+     "ru": "Утром у нас грамматика, а потом разговорная практика.",
+     "fr": "Le matin, nous avons de la grammaire, puis de la pratique orale."
+    },
+    {
+     "ru": "В час дня мы обедаем в столовой.",
+     "fr": "À une heure, nous déjeunons à la cantine."
+    },
+    {
+     "ru": "Я обычно беру суп и салат.",
+     "fr": "Je prends d'habitude une soupe et une salade."
+    },
+    {
+     "ru": "После обеда я иду в библиотеку.",
+     "fr": "Après le déjeuner, je vais à la bibliothèque.",
+     "paragraph": true
+    },
+    {
+     "ru": "Там я читаю и делаю домашнее задание.",
+     "fr": "Là, je lis et je fais mes devoirs."
+    },
+    {
+     "ru": "Вечером я гуляю с Никой или смотрю фильмы.",
+     "fr": "Le soir, je me promène avec Nika ou je regarde des films."
+    },
+    {
+     "ru": "В одиннадцать часов я ложусь спать.",
+     "fr": "À onze heures, je me couche.",
+     "paragraph": true
+    },
+    {
+     "ru": "Мой день длинный, но я счастлива.",
+     "fr": "Ma journée est longue, mais je suis heureuse."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "вставать",
+     "fr": "se lever"
+    },
+    {
+     "ru": "ехать",
+     "fr": "aller (en véhicule)"
+    },
+    {
+     "ru": "обедать",
+     "fr": "déjeuner"
+    },
+    {
+     "ru": "библиотека",
+     "fr": "bibliothèque"
+    },
+    {
+     "ru": "ложиться спать",
+     "fr": "se coucher"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Когда Камилла встаёт?",
+     "fr": "À quelle heure Camille se lève-t-elle ?",
+     "options": [
+      "В шесть",
+      "В семь",
+      "В девять"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Где она обедает?",
+     "fr": "Où déjeune-t-elle ?",
+     "options": [
+      "Дома",
+      "В ресторане",
+      "В столовой"
+     ],
+     "answer": 2
+    },
+    {
+     "ru": "Что она делает в библиотеке?",
+     "fr": "Que fait-elle à la bibliothèque ?",
+     "options": [
+      "Спит",
+      "Читает и делает домашнее задание",
+      "Пьёт кофе"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "pogoda",
+   "level": "A1",
+   "order": 7,
+   "title": "Какая погода?",
+   "titleFr": "Quel temps fait-il ?",
+   "emoji": "🌧️",
+   "theme": "teal",
+   "summary": "Octobre à Kazan : il est temps d'acheter un bonnet.",
+   "lines": [
+    {
+     "ru": "Сейчас октябрь.",
+     "fr": "Nous sommes en octobre."
+    },
+    {
+     "ru": "В Казани уже холодно.",
+     "fr": "À Kazan, il fait déjà froid."
+    },
+    {
+     "ru": "Утром температура — плюс два градуса.",
+     "fr": "Le matin, il fait plus deux degrés."
+    },
+    {
+     "ru": "Часто идёт дождь, и дует сильный ветер.",
+     "fr": "Il pleut souvent, et un vent fort souffle."
+    },
+    {
+     "ru": "В Лионе в октябре ещё тепло.",
+     "fr": "À Lyon, en octobre, il fait encore doux.",
+     "paragraph": true
+    },
+    {
+     "ru": "Мама пишет мне: «У нас пятнадцать градусов и солнце!»",
+     "fr": "Maman m'écrit : « Chez nous, il fait quinze degrés et il y a du soleil ! »"
+    },
+    {
+     "ru": "Ника говорит, что это ещё не холод.",
+     "fr": "Nika dit que ce n'est pas encore le froid.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Настоящий холод будет в январе. Минус двадцать!»",
+     "fr": "« Le vrai froid, ce sera en janvier. Moins vingt ! »"
+    },
+    {
+     "ru": "Мне страшно.",
+     "fr": "J'ai peur."
+    },
+    {
+     "ru": "Сегодня мы идём в магазин и покупаем тёплую куртку, шапку и перчатки.",
+     "fr": "Aujourd'hui, nous allons au magasin et nous achetons une veste chaude, un bonnet et des gants.",
+     "paragraph": true
+    },
+    {
+     "ru": "Шапка красная, а куртка синяя.",
+     "fr": "Le bonnet est rouge, et la veste est bleue."
+    },
+    {
+     "ru": "Теперь я готова к зиме!",
+     "fr": "Maintenant, je suis prête pour l'hiver !"
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "погода",
+     "fr": "temps (météo)"
+    },
+    {
+     "ru": "холодно",
+     "fr": "il fait froid"
+    },
+    {
+     "ru": "дождь",
+     "fr": "pluie"
+    },
+    {
+     "ru": "ветер",
+     "fr": "vent"
+    },
+    {
+     "ru": "шапка",
+     "fr": "bonnet"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Какая температура в Казани утром?",
+     "fr": "Quelle température fait-il à Kazan le matin ?",
+     "options": [
+      "Плюс два градуса",
+      "Плюс пятнадцать",
+      "Минус двадцать"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Где сейчас тепло?",
+     "fr": "Où fait-il doux en ce moment ?",
+     "options": [
+      "В Казани",
+      "В Лионе",
+      "В Москве"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Какого цвета шапка?",
+     "fr": "De quelle couleur est le bonnet ?",
+     "options": [
+      "Синяя",
+      "Белая",
+      "Красная"
+     ],
+     "answer": 2
+    }
+   ]
+  },
+  {
+   "id": "semya-niki",
+   "level": "A1",
+   "order": 8,
+   "title": "Семья Ники",
+   "titleFr": "La famille de Nika",
+   "emoji": "👨‍👩‍👧‍👦",
+   "theme": "green",
+   "summary": "Un week-end au village, chez les parents de Nika… et chez sa grand-mère.",
+   "lines": [
+    {
+     "ru": "В пятницу мы едем к родителям Ники.",
+     "fr": "Vendredi, nous allons chez les parents de Nika."
+    },
+    {
+     "ru": "Они живут в деревне недалеко от Казани.",
+     "fr": "Ils vivent dans un village près de Kazan."
+    },
+    {
+     "ru": "У Ники большая семья.",
+     "fr": "Nika a une grande famille.",
+     "paragraph": true
+    },
+    {
+     "ru": "Её папа — инженер, а мама — учительница.",
+     "fr": "Son père est ingénieur, et sa mère est institutrice."
+    },
+    {
+     "ru": "У неё есть брат Артём и сестра Даша.",
+     "fr": "Elle a un frère, Artiom, et une sœur, Dacha."
+    },
+    {
+     "ru": "Артём старше Ники. Он повар и живёт в Москве.",
+     "fr": "Artiom est plus âgé que Nika. Il est cuisinier et vit à Moscou."
+    },
+    {
+     "ru": "Даша младше. Ей двенадцать лет, она школьница.",
+     "fr": "Dacha est plus jeune. Elle a douze ans, elle va à l'école."
+    },
+    {
+     "ru": "Ещё с ними живёт бабушка.",
+     "fr": "Leur grand-mère vit aussi avec eux.",
+     "paragraph": true
+    },
+    {
+     "ru": "Бабушка очень добрая и всё время нас кормит.",
+     "fr": "La grand-mère est très gentille et nous nourrit sans arrêt."
+    },
+    {
+     "ru": "«Ешь, Камилла, ешь! Ты такая худая!» — говорит она.",
+     "fr": "« Mange, Camille, mange ! Tu es si mince ! » dit-elle."
+    },
+    {
+     "ru": "Даша задаёт мне много вопросов о Франции.",
+     "fr": "Dacha me pose beaucoup de questions sur la France.",
+     "paragraph": true
+    },
+    {
+     "ru": "Вечером мы все вместе пьём чай и поём песни.",
+     "fr": "Le soir, nous buvons tous ensemble du thé et nous chantons des chansons."
+    },
+    {
+     "ru": "Мне здесь очень хорошо.",
+     "fr": "Je me sens très bien ici."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "семья",
+     "fr": "famille"
+    },
+    {
+     "ru": "родители",
+     "fr": "parents"
+    },
+    {
+     "ru": "брат",
+     "fr": "frère"
+    },
+    {
+     "ru": "сестра",
+     "fr": "sœur"
+    },
+    {
+     "ru": "бабушка",
+     "fr": "grand-mère"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Где живут родители Ники?",
+     "fr": "Où vivent les parents de Nika ?",
+     "options": [
+      "В Москве",
+      "В деревне",
+      "В Лионе"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Кто Артём по профессии?",
+     "fr": "Quel est le métier d'Artiom ?",
+     "options": [
+      "Повар",
+      "Инженер",
+      "Учитель"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Сколько лет Даше?",
+     "fr": "Quel âge a Dacha ?",
+     "options": [
+      "Восемь",
+      "Двенадцать",
+      "Двадцать"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "gde-klyuch",
+   "level": "A2",
+   "order": 1,
+   "title": "Где ключ?",
+   "titleFr": "Où est la clé ?",
+   "emoji": "🔑",
+   "theme": "violet",
+   "summary": "Tard le soir, Camille ne trouve plus sa clé. Heureusement, il y a un voisin.",
+   "lines": [
+    {
+     "ru": "Вчера был трудный день.",
+     "fr": "Hier a été une journée difficile."
+    },
+    {
+     "ru": "Я вернулась из университета поздно, в девять часов вечера.",
+     "fr": "Je suis rentrée de l'université tard, à neuf heures du soir."
+    },
+    {
+     "ru": "Я очень устала и хотела спать.",
+     "fr": "J'étais très fatiguée et j'avais envie de dormir."
+    },
+    {
+     "ru": "Я подошла к двери и открыла сумку.",
+     "fr": "Je me suis approchée de la porte et j'ai ouvert mon sac."
+    },
+    {
+     "ru": "Ключа не было!",
+     "fr": "La clé n'y était pas !"
+    },
+    {
+     "ru": "Я искала везде: в сумке, в карманах, в книгах.",
+     "fr": "J'ai cherché partout : dans le sac, dans les poches, dans les livres.",
+     "paragraph": true
+    },
+    {
+     "ru": "Ничего.",
+     "fr": "Rien."
+    },
+    {
+     "ru": "Ника в тот вечер была у родителей.",
+     "fr": "Ce soir-là, Nika était chez ses parents."
+    },
+    {
+     "ru": "Я позвонила ей, но она не ответила.",
+     "fr": "Je l'ai appelée, mais elle n'a pas répondu."
+    },
+    {
+     "ru": "Вдруг дверь соседа открылась.",
+     "fr": "Soudain, la porte du voisin s'est ouverte.",
+     "paragraph": true
+    },
+    {
+     "ru": "Это был дедушка Фёдор, а за ним — Пирожок.",
+     "fr": "C'était le vieux Fiodor, et derrière lui, Pirojok."
+    },
+    {
+     "ru": "«Камилла, что случилось?» — спросил он.",
+     "fr": "« Camille, que s'est-il passé ? » demanda-t-il."
+    },
+    {
+     "ru": "Я всё объяснила.",
+     "fr": "Je lui ai tout expliqué."
+    },
+    {
+     "ru": "Дедушка улыбнулся: «Подожди минутку».",
+     "fr": "Le vieil homme a souri : « Attends une petite minute. »"
+    },
+    {
+     "ru": "Через минуту он вернулся с ключом в руке.",
+     "fr": "Une minute plus tard, il est revenu avec une clé à la main.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Ника дала мне запасной ключ. На всякий случай».",
+     "fr": "« Nika m'a donné un double de la clé. Au cas où. »"
+    },
+    {
+     "ru": "Я была так рада! Я пригласила его на чай.",
+     "fr": "J'étais si contente ! Je l'ai invité à prendre le thé."
+    },
+    {
+     "ru": "А Пирожок, конечно, тоже пришёл.",
+     "fr": "Et Pirojok, bien sûr, est venu aussi."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "ключ",
+     "fr": "clé"
+    },
+    {
+     "ru": "искать",
+     "fr": "chercher"
+    },
+    {
+     "ru": "устать",
+     "fr": "être fatigué"
+    },
+    {
+     "ru": "сосед",
+     "fr": "voisin"
+    },
+    {
+     "ru": "запасной",
+     "fr": "de rechange, double"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Когда Камилла вернулась домой?",
+     "fr": "Quand Camille est-elle rentrée ?",
+     "options": [
+      "В девять часов вечера",
+      "В полдень",
+      "В семь утра"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Где была Ника?",
+     "fr": "Où était Nika ?",
+     "options": [
+      "В университете",
+      "У родителей",
+      "В магазине"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Откуда у дедушки ключ?",
+     "fr": "D'où le vieux Fiodor a-t-il la clé ?",
+     "options": [
+      "Он нашёл его на улице",
+      "Ника дала ему запасной ключ",
+      "Это его ключ"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "poezd",
+   "level": "A2",
+   "order": 2,
+   "title": "Ночной поезд",
+   "titleFr": "Le train de nuit",
+   "emoji": "🚆",
+   "theme": "blue",
+   "summary": "Une nuit en train jusqu'à Moscou, avec du thé, des pirojki et une rencontre.",
+   "lines": [
+    {
+     "ru": "В ноябре мы с Никой решили поехать в Москву.",
+     "fr": "En novembre, Nika et moi avons décidé d'aller à Moscou."
+    },
+    {
+     "ru": "Мы хотели увидеть Артёма и посмотреть город.",
+     "fr": "Nous voulions voir Artiom et visiter la ville."
+    },
+    {
+     "ru": "Мы купили билеты на ночной поезд.",
+     "fr": "Nous avons acheté des billets pour le train de nuit."
+    },
+    {
+     "ru": "Поезд отправился в десять часов вечера.",
+     "fr": "Le train est parti à dix heures du soir.",
+     "paragraph": true
+    },
+    {
+     "ru": "В нашем купе было четыре места.",
+     "fr": "Dans notre compartiment, il y avait quatre places."
+    },
+    {
+     "ru": "С нами ехала пожилая женщина с собакой.",
+     "fr": "Une dame âgée voyageait avec nous, avec son chien."
+    },
+    {
+     "ru": "Женщину звали Галина Петровна.",
+     "fr": "La dame s'appelait Galina Petrovna."
+    },
+    {
+     "ru": "Она угостила нас пирожками с капустой.",
+     "fr": "Elle nous a offert des pirojki au chou."
+    },
+    {
+     "ru": "Проводница принесла нам чай в красивых стаканах.",
+     "fr": "La contrôleuse nous a apporté du thé dans de jolis verres.",
+     "paragraph": true
+    },
+    {
+     "ru": "Мы долго разговаривали, а потом легли спать.",
+     "fr": "Nous avons longuement discuté, puis nous nous sommes couchées."
+    },
+    {
+     "ru": "Утром я проснулась и посмотрела в окно.",
+     "fr": "Le matin, je me suis réveillée et j'ai regardé par la fenêtre.",
+     "paragraph": true
+    },
+    {
+     "ru": "Там были леса, поля и маленькие деревни.",
+     "fr": "Il y avait des forêts, des champs et de petits villages."
+    },
+    {
+     "ru": "В восемь утра поезд приехал в Москву.",
+     "fr": "À huit heures du matin, le train est arrivé à Moscou."
+    },
+    {
+     "ru": "На вокзале нас ждал Артём с цветами.",
+     "fr": "À la gare, Artiom nous attendait avec des fleurs."
+    },
+    {
+     "ru": "«Добро пожаловать в Москву!» — сказал он.",
+     "fr": "« Bienvenue à Moscou ! » a-t-il dit."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "поезд",
+     "fr": "train"
+    },
+    {
+     "ru": "билет",
+     "fr": "billet"
+    },
+    {
+     "ru": "купе",
+     "fr": "compartiment"
+    },
+    {
+     "ru": "проводница",
+     "fr": "contrôleuse (de train)"
+    },
+    {
+     "ru": "вокзал",
+     "fr": "gare"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Когда отправился поезд?",
+     "fr": "Quand le train est-il parti ?",
+     "options": [
+      "В десять часов вечера",
+      "В восемь утра",
+      "В полночь"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Чем Галина Петровна угостила девушек?",
+     "fr": "Qu'a offert Galina Petrovna aux filles ?",
+     "options": [
+      "Блинами",
+      "Пирожками с капустой",
+      "Конфетами"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Кто ждал их на вокзале?",
+     "fr": "Qui les attendait à la gare ?",
+     "options": [
+      "Дедушка Фёдор",
+      "Даша",
+      "Артём"
+     ],
+     "answer": 2
+    }
+   ]
+  },
+  {
+   "id": "den-rozhdeniya",
+   "level": "A2",
+   "order": 3,
+   "title": "День рождения",
+   "titleFr": "L'anniversaire",
+   "emoji": "🎂",
+   "theme": "red",
+   "summary": "Une surprise pour le vieux Fiodor, qui a des histoires de marin à raconter.",
+   "lines": [
+    {
+     "ru": "В декабре у дедушки Фёдора был день рождения.",
+     "fr": "En décembre, c'était l'anniversaire du vieux Fiodor."
+    },
+    {
+     "ru": "Ему исполнился восемьдесят один год.",
+     "fr": "Il a eu quatre-vingt-un ans."
+    },
+    {
+     "ru": "Мы с Никой решили сделать ему сюрприз.",
+     "fr": "Nika et moi avons décidé de lui faire une surprise."
+    },
+    {
+     "ru": "Ника испекла торт, а я нарисовала открытку.",
+     "fr": "Nika a fait un gâteau, et moi, j'ai dessiné une carte."
+    },
+    {
+     "ru": "На открытке был Пирожок в шапке.",
+     "fr": "Sur la carte, il y avait Pirojok avec un bonnet."
+    },
+    {
+     "ru": "Вечером мы позвонили в его дверь.",
+     "fr": "Le soir, nous avons sonné à sa porte.",
+     "paragraph": true
+    },
+    {
+     "ru": "Дедушка открыл и очень удивился.",
+     "fr": "Le vieil homme a ouvert et a été très surpris."
+    },
+    {
+     "ru": "«С днём рождения!» — закричали мы.",
+     "fr": "« Joyeux anniversaire ! » avons-nous crié."
+    },
+    {
+     "ru": "Он засмеялся и пригласил нас войти.",
+     "fr": "Il a éclaté de rire et nous a invitées à entrer."
+    },
+    {
+     "ru": "Мы пили чай, ели торт и слушали его истории.",
+     "fr": "Nous avons bu du thé, mangé du gâteau et écouté ses histoires.",
+     "paragraph": true
+    },
+    {
+     "ru": "Когда-то дедушка Фёдор был моряком.",
+     "fr": "Autrefois, le vieux Fiodor était marin."
+    },
+    {
+     "ru": "Он видел много стран, даже Францию!",
+     "fr": "Il a vu beaucoup de pays, même la France !"
+    },
+    {
+     "ru": "«Марсель — красивый город», — сказал он.",
+     "fr": "« Marseille est une belle ville », a-t-il dit."
+    },
+    {
+     "ru": "Потом он взял гитару и спел старую песню.",
+     "fr": "Puis il a pris une guitare et a chanté une vieille chanson.",
+     "paragraph": true
+    },
+    {
+     "ru": "Пирожок спал у меня на коленях.",
+     "fr": "Pirojok dormait sur mes genoux."
+    },
+    {
+     "ru": "Это был прекрасный вечер.",
+     "fr": "C'était une soirée merveilleuse."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "день рождения",
+     "fr": "anniversaire"
+    },
+    {
+     "ru": "сюрприз",
+     "fr": "surprise"
+    },
+    {
+     "ru": "торт",
+     "fr": "gâteau"
+    },
+    {
+     "ru": "открытка",
+     "fr": "carte"
+    },
+    {
+     "ru": "моряк",
+     "fr": "marin"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Сколько лет исполнилось дедушке?",
+     "fr": "Quel âge le vieux Fiodor a-t-il eu ?",
+     "options": [
+      "Восемьдесят один",
+      "Семьдесят",
+      "Девяносто"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Что нарисовала Камилла?",
+     "fr": "Qu'a dessiné Camille ?",
+     "options": [
+      "Торт",
+      "Открытку с Пирожком",
+      "Корабль"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Кем был дедушка Фёдор раньше?",
+     "fr": "Que faisait le vieux Fiodor autrefois ?",
+     "options": [
+      "Поваром",
+      "Учителем",
+      "Моряком"
+     ],
+     "answer": 2
+    }
+   ]
+  },
+  {
+   "id": "u-vracha",
+   "level": "A2",
+   "order": 4,
+   "title": "У врача",
+   "titleFr": "Chez le médecin",
+   "emoji": "🩺",
+   "theme": "teal",
+   "summary": "Mal de gorge et fièvre : le médecin passe, et le voisin apporte le meilleur remède.",
+   "lines": [
+    {
+     "ru": "В понедельник я проснулась и почувствовала себя плохо.",
+     "fr": "Lundi, je me suis réveillée et je me suis sentie mal."
+    },
+    {
+     "ru": "У меня болели голова и горло.",
+     "fr": "J'avais mal à la tête et à la gorge."
+    },
+    {
+     "ru": "Ника потрогала мой лоб: «У тебя температура!»",
+     "fr": "Nika a touché mon front : « Tu as de la fièvre ! »"
+    },
+    {
+     "ru": "Она сразу вызвала врача.",
+     "fr": "Elle a tout de suite appelé le médecin."
+    },
+    {
+     "ru": "Через час пришёл врач, молодой мужчина в очках.",
+     "fr": "Une heure plus tard, le médecin est arrivé, un jeune homme à lunettes.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Что вас беспокоит?» — спросил он.",
+     "fr": "« Qu'est-ce qui ne va pas ? » a-t-il demandé."
+    },
+    {
+     "ru": "Я рассказала ему всё.",
+     "fr": "Je lui ai tout raconté."
+    },
+    {
+     "ru": "Он послушал меня и посмотрел горло.",
+     "fr": "Il m'a auscultée et a regardé ma gorge."
+    },
+    {
+     "ru": "«Ничего страшного, это простуда», — сказал он.",
+     "fr": "« Rien de grave, c'est un rhume », a-t-il dit."
+    },
+    {
+     "ru": "«Вам нужно три дня лежать дома и пить много чая с мёдом».",
+     "fr": "« Vous devez rester couchée trois jours et boire beaucoup de thé au miel. »"
+    },
+    {
+     "ru": "Он написал рецепт и ушёл.",
+     "fr": "Il a écrit une ordonnance et il est parti.",
+     "paragraph": true
+    },
+    {
+     "ru": "Ника пошла в аптеку и купила лекарство.",
+     "fr": "Nika est allée à la pharmacie et a acheté le médicament."
+    },
+    {
+     "ru": "Дедушка Фёдор принёс мне малиновое варенье.",
+     "fr": "Le vieux Fiodor m'a apporté de la confiture de framboises."
+    },
+    {
+     "ru": "«Это лучшее лекарство», — сказал он.",
+     "fr": "« C'est le meilleur des remèdes », a-t-il dit."
+    },
+    {
+     "ru": "Через три дня я снова была здорова.",
+     "fr": "Trois jours plus tard, j'étais de nouveau en bonne santé.",
+     "paragraph": true
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "врач",
+     "fr": "médecin"
+    },
+    {
+     "ru": "болеть",
+     "fr": "faire mal"
+    },
+    {
+     "ru": "простуда",
+     "fr": "rhume"
+    },
+    {
+     "ru": "аптека",
+     "fr": "pharmacie"
+    },
+    {
+     "ru": "лекарство",
+     "fr": "médicament"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Что болело у Камиллы?",
+     "fr": "Où Camille avait-elle mal ?",
+     "options": [
+      "Нога и рука",
+      "Голова и горло",
+      "Живот"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что сказал врач?",
+     "fr": "Qu'a dit le médecin ?",
+     "options": [
+      "Это простуда",
+      "Нужно ехать в больницу",
+      "Можно идти на занятия"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Что принёс дедушка Фёдор?",
+     "fr": "Qu'a apporté le vieux Fiodor ?",
+     "options": [
+      "Цветы",
+      "Малиновое варенье",
+      "Лекарство из аптеки"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "pirozhok-propal",
+   "level": "A2",
+   "order": 5,
+   "title": "Пирожок пропал",
+   "titleFr": "Pirojok a disparu",
+   "emoji": "🔎",
+   "theme": "amber",
+   "summary": "Le chat du voisin est introuvable. Tout l'immeuble le cherche.",
+   "lines": [
+    {
+     "ru": "Однажды утром дедушка Фёдор постучал в нашу дверь.",
+     "fr": "Un matin, le vieux Fiodor a frappé à notre porte."
+    },
+    {
+     "ru": "Он был очень грустный.",
+     "fr": "Il était très triste."
+    },
+    {
+     "ru": "«Пирожок пропал! Я не видел его со вчерашнего вечера».",
+     "fr": "« Pirojok a disparu ! Je ne l'ai pas vu depuis hier soir. »"
+    },
+    {
+     "ru": "Мы сразу начали искать кота.",
+     "fr": "Nous avons tout de suite commencé à chercher le chat.",
+     "paragraph": true
+    },
+    {
+     "ru": "Мы проверили все этажи, подвал и двор.",
+     "fr": "Nous avons vérifié tous les étages, la cave et la cour."
+    },
+    {
+     "ru": "Ника спросила соседей, но никто не видел Пирожка.",
+     "fr": "Nika a demandé aux voisins, mais personne n'avait vu Pirojok."
+    },
+    {
+     "ru": "Я написала объявление: «Пропал рыжий кот. Очень ленивый, любит рыбу».",
+     "fr": "J'ai écrit une annonce : « Chat roux perdu. Très paresseux, aime le poisson. »"
+    },
+    {
+     "ru": "Мы повесили объявления у каждого подъезда.",
+     "fr": "Nous avons accroché des annonces à chaque entrée d'immeuble."
+    },
+    {
+     "ru": "Весь день мы ждали. Никто не позвонил.",
+     "fr": "Nous avons attendu toute la journée. Personne n'a appelé.",
+     "paragraph": true
+    },
+    {
+     "ru": "Вечером я пошла в магазин за рыбой.",
+     "fr": "Le soir, je suis allée au magasin acheter du poisson."
+    },
+    {
+     "ru": "Когда я вернулась, я услышала знакомое «мяу».",
+     "fr": "Quand je suis revenue, j'ai entendu un « miaou » familier."
+    },
+    {
+     "ru": "Звук шёл из нашей кухни!",
+     "fr": "Le bruit venait de notre cuisine !"
+    },
+    {
+     "ru": "Пирожок сидел в шкафу, где мы храним рыбные консервы.",
+     "fr": "Pirojok était assis dans le placard où nous rangeons les conserves de poisson.",
+     "paragraph": true
+    },
+    {
+     "ru": "Наверное, он вошёл, когда мы утром открыли дверь.",
+     "fr": "Il était sans doute entré quand nous avions ouvert la porte le matin."
+    },
+    {
+     "ru": "Оказалось, он спал там весь день.",
+     "fr": "En fait, il avait dormi là toute la journée."
+    },
+    {
+     "ru": "Дедушка Фёдор смеялся до слёз.",
+     "fr": "Le vieux Fiodor a ri aux larmes."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "пропасть",
+     "fr": "disparaître"
+    },
+    {
+     "ru": "искать",
+     "fr": "chercher"
+    },
+    {
+     "ru": "объявление",
+     "fr": "annonce"
+    },
+    {
+     "ru": "никто",
+     "fr": "personne"
+    },
+    {
+     "ru": "шкаф",
+     "fr": "placard, armoire"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Кто постучал в дверь?",
+     "fr": "Qui a frappé à la porte ?",
+     "options": [
+      "Ника",
+      "Дедушка Фёдор",
+      "Артём"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что написала Камилла?",
+     "fr": "Qu'a écrit Camille ?",
+     "options": [
+      "Письмо маме",
+      "Объявление",
+      "Рецепт"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Где был Пирожок?",
+     "fr": "Où était Pirojok ?",
+     "options": [
+      "В подвале",
+      "На улице",
+      "В шкафу на кухне"
+     ],
+     "answer": 2
+    }
+   ]
+  },
+  {
+   "id": "pervyy-sneg",
+   "level": "A2",
+   "order": 6,
+   "title": "Первый снег",
+   "titleFr": "La première neige",
+   "emoji": "⛸️",
+   "theme": "blue",
+   "summary": "La ville est toute blanche : Camille chausse des patins pour la première fois.",
+   "lines": [
+    {
+     "ru": "В начале ноября я проснулась, и всё было белое.",
+     "fr": "Début novembre, je me suis réveillée, et tout était blanc."
+    },
+    {
+     "ru": "Ночью выпал первый снег.",
+     "fr": "Pendant la nuit, la première neige était tombée."
+    },
+    {
+     "ru": "Я никогда не видела так много снега!",
+     "fr": "Je n'avais jamais vu autant de neige !"
+    },
+    {
+     "ru": "В Лионе снег бывает редко, и он быстро тает.",
+     "fr": "À Lyon, il neige rarement, et la neige fond vite."
+    },
+    {
+     "ru": "Ника сказала: «Одевайся! Идём на каток!»",
+     "fr": "Nika a dit : « Habille-toi ! On va à la patinoire ! »",
+     "paragraph": true
+    },
+    {
+     "ru": "Я надела куртку, шапку и тёплые сапоги.",
+     "fr": "J'ai mis ma veste, mon bonnet et des bottes chaudes."
+    },
+    {
+     "ru": "Каток был в парке, недалеко от реки.",
+     "fr": "La patinoire était dans le parc, près de la rivière."
+    },
+    {
+     "ru": "Там было много людей: дети, студенты, даже бабушки!",
+     "fr": "Il y avait beaucoup de monde : des enfants, des étudiants, même des grands-mères !"
+    },
+    {
+     "ru": "Я каталась на коньках первый раз в жизни.",
+     "fr": "Je patinais pour la première fois de ma vie.",
+     "paragraph": true
+    },
+    {
+     "ru": "Сначала я всё время падала.",
+     "fr": "Au début, je tombais tout le temps."
+    },
+    {
+     "ru": "Маленький мальчик подъехал ко мне и сказал: «Не бойтесь! Смотрите на меня!»",
+     "fr": "Un petit garçon a glissé jusqu'à moi et a dit : « N'ayez pas peur ! Regardez-moi ! »"
+    },
+    {
+     "ru": "Через час я уже могла кататься одна.",
+     "fr": "Une heure plus tard, je pouvais déjà patiner seule."
+    },
+    {
+     "ru": "Потом мы пили горячий шоколад и смотрели на снег.",
+     "fr": "Ensuite, nous avons bu un chocolat chaud en regardant la neige.",
+     "paragraph": true
+    },
+    {
+     "ru": "Теперь я понимаю, почему русские любят зиму.",
+     "fr": "Maintenant, je comprends pourquoi les Russes aiment l'hiver."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "снег",
+     "fr": "neige"
+    },
+    {
+     "ru": "каток",
+     "fr": "patinoire"
+    },
+    {
+     "ru": "кататься на коньках",
+     "fr": "patiner"
+    },
+    {
+     "ru": "падать",
+     "fr": "tomber"
+    },
+    {
+     "ru": "бояться",
+     "fr": "avoir peur"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Куда пошли девушки?",
+     "fr": "Où sont allées les filles ?",
+     "options": [
+      "В кино",
+      "На каток",
+      "В библиотеку"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что делала Камилла сначала?",
+     "fr": "Que faisait Camille au début ?",
+     "options": [
+      "Падала",
+      "Пела",
+      "Каталась очень быстро"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Кто помог Камилле?",
+     "fr": "Qui a aidé Camille ?",
+     "options": [
+      "Ника",
+      "Маленький мальчик",
+      "Бабушка"
+     ],
+     "answer": 1
+    }
+   ]
+  },
+  {
+   "id": "borshch",
+   "level": "A2",
+   "order": 7,
+   "title": "Борщ Артёма",
+   "titleFr": "Le bortsch d'Artiom",
+   "emoji": "🍲",
+   "theme": "red",
+   "summary": "Artiom vient à Kazan et apprend aux filles à faire un vrai bortsch.",
+   "lines": [
+    {
+     "ru": "Артём приехал в Казань на выходные.",
+     "fr": "Artiom est venu à Kazan pour le week-end."
+    },
+    {
+     "ru": "Он сказал: «Сегодня я научу вас готовить настоящий борщ».",
+     "fr": "Il a dit : « Aujourd'hui, je vais vous apprendre à faire un vrai bortsch. »"
+    },
+    {
+     "ru": "Сначала мы пошли на рынок за продуктами.",
+     "fr": "D'abord, nous sommes allés au marché faire les courses."
+    },
+    {
+     "ru": "Мы купили свёклу, капусту, картошку, морковь, лук и мясо.",
+     "fr": "Nous avons acheté de la betterave, du chou, des pommes de terre, des carottes, des oignons et de la viande."
+    },
+    {
+     "ru": "Дома Артём поставил большую кастрюлю на плиту.",
+     "fr": "À la maison, Artiom a mis une grande casserole sur la cuisinière.",
+     "paragraph": true
+    },
+    {
+     "ru": "Сначала он долго варил мясо.",
+     "fr": "D'abord, il a fait cuire la viande longtemps."
+    },
+    {
+     "ru": "Я резала овощи, а Ника тёрла свёклу.",
+     "fr": "Je coupais les légumes, et Nika râpait la betterave."
+    },
+    {
+     "ru": "Её руки стали совсем красными!",
+     "fr": "Ses mains sont devenues toutes rouges !"
+    },
+    {
+     "ru": "Потом Артём положил всё в кастрюлю.",
+     "fr": "Ensuite, Artiom a tout mis dans la casserole.",
+     "paragraph": true
+    },
+    {
+     "ru": "«Главное — не спешить», — сказал он.",
+     "fr": "« L'essentiel, c'est de ne pas se presser », a-t-il dit."
+    },
+    {
+     "ru": "Через два часа борщ был готов.",
+     "fr": "Deux heures plus tard, le bortsch était prêt."
+    },
+    {
+     "ru": "Мы ели его со сметаной и чёрным хлебом.",
+     "fr": "Nous l'avons mangé avec de la crème fraîche et du pain noir.",
+     "paragraph": true
+    },
+    {
+     "ru": "Это было очень вкусно!",
+     "fr": "C'était délicieux !"
+    },
+    {
+     "ru": "Я записала рецепт, чтобы приготовить борщ для родителей во Франции.",
+     "fr": "J'ai noté la recette pour préparer un bortsch à mes parents, en France."
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "готовить",
+     "fr": "cuisiner, préparer"
+    },
+    {
+     "ru": "кастрюля",
+     "fr": "casserole"
+    },
+    {
+     "ru": "свёкла",
+     "fr": "betterave"
+    },
+    {
+     "ru": "овощи",
+     "fr": "légumes"
+    },
+    {
+     "ru": "рецепт",
+     "fr": "recette"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Что они готовили?",
+     "fr": "Qu'ont-ils préparé ?",
+     "options": [
+      "Блины",
+      "Борщ",
+      "Пельмени"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Почему руки Ники стали красными?",
+     "fr": "Pourquoi les mains de Nika sont-elles devenues rouges ?",
+     "options": [
+      "Она тёрла свёклу",
+      "Ей было холодно",
+      "Она рисовала"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Сколько времени варился борщ?",
+     "fr": "Combien de temps le bortsch a-t-il cuit ?",
+     "options": [
+      "Два часа",
+      "Десять минут",
+      "Весь день"
+     ],
+     "answer": 0
+    }
+   ]
+  },
+  {
+   "id": "pismo-domoy",
+   "level": "A2",
+   "order": 8,
+   "title": "Письмо домой",
+   "titleFr": "Lettre à la maison",
+   "emoji": "✉️",
+   "theme": "violet",
+   "summary": "Trois mois après son arrivée, Camille écrit à ses parents à Lyon.",
+   "lines": [
+    {
+     "ru": "Дорогие мама и папа!",
+     "fr": "Chers maman et papa,"
+    },
+    {
+     "ru": "Я живу в Казани уже три месяца.",
+     "fr": "Je vis à Kazan depuis déjà trois mois.",
+     "paragraph": true
+    },
+    {
+     "ru": "Время прошло очень быстро.",
+     "fr": "Le temps est passé très vite."
+    },
+    {
+     "ru": "Сначала мне было трудно: я плохо понимала людей и часто терялась в городе.",
+     "fr": "Au début, c'était difficile : je comprenais mal les gens et je me perdais souvent en ville."
+    },
+    {
+     "ru": "Теперь я понимаю почти всё, если люди говорят медленно.",
+     "fr": "Maintenant, je comprends presque tout si les gens parlent lentement."
+    },
+    {
+     "ru": "У меня появилось много друзей.",
+     "fr": "Je me suis fait beaucoup d'amis.",
+     "paragraph": true
+    },
+    {
+     "ru": "Ника стала мне как сестра.",
+     "fr": "Nika est devenue comme une sœur pour moi."
+    },
+    {
+     "ru": "Наш сосед, дедушка Фёдор, рассказывает мне истории о море.",
+     "fr": "Notre voisin, le vieux Fiodor, me raconte des histoires de mer."
+    },
+    {
+     "ru": "А его кот Пирожок спит у нас почти каждый вечер.",
+     "fr": "Et son chat Pirojok dort chez nous presque tous les soirs."
+    },
+    {
+     "ru": "Я научилась кататься на коньках и готовить борщ.",
+     "fr": "J'ai appris à patiner et à faire le bortsch.",
+     "paragraph": true
+    },
+    {
+     "ru": "Зимой здесь очень холодно, но у меня есть тёплая шапка и малиновое варенье.",
+     "fr": "En hiver, il fait très froid ici, mais j'ai un bonnet chaud et de la confiture de framboises."
+    },
+    {
+     "ru": "Я очень скучаю по вам и по Лиону.",
+     "fr": "Vous me manquez beaucoup, et Lyon aussi.",
+     "paragraph": true
+    },
+    {
+     "ru": "Но я рада, что приехала сюда.",
+     "fr": "Mais je suis contente d'être venue ici."
+    },
+    {
+     "ru": "Летом я приеду домой и приготовлю вам настоящий русский ужин.",
+     "fr": "Cet été, je rentrerai à la maison et je vous préparerai un vrai dîner russe."
+    },
+    {
+     "ru": "Целую, ваша Камилла.",
+     "fr": "Je vous embrasse. Votre Camille.",
+     "paragraph": true
+    }
+   ],
+   "keywords": [
+    {
+     "ru": "дорогой",
+     "fr": "cher"
+    },
+    {
+     "ru": "скучать",
+     "fr": "s'ennuyer de, manquer"
+    },
+    {
+     "ru": "научиться",
+     "fr": "apprendre (à faire)"
+    },
+    {
+     "ru": "понимать",
+     "fr": "comprendre"
+    },
+    {
+     "ru": "сюда",
+     "fr": "ici (direction)"
+    }
+   ],
+   "questions": [
+    {
+     "ru": "Сколько времени Камилла живёт в Казани?",
+     "fr": "Depuis combien de temps Camille vit-elle à Kazan ?",
+     "options": [
+      "Три месяца",
+      "Один год",
+      "Две недели"
+     ],
+     "answer": 0
+    },
+    {
+     "ru": "Чему она научилась?",
+     "fr": "Qu'a-t-elle appris ?",
+     "options": [
+      "Играть на гитаре",
+      "Кататься на коньках и готовить борщ",
+      "Водить машину"
+     ],
+     "answer": 1
+    },
+    {
+     "ru": "Что она сделает летом?",
+     "fr": "Que fera-t-elle cet été ?",
+     "options": [
+      "Поедет в Москву",
+      "Приедет домой и приготовит ужин",
+      "Будет работать в ресторане"
+     ],
+     "answer": 1
+    }
+   ]
+  }
+ ]
+}

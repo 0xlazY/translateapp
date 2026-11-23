@@ -1,0 +1,481 @@
+[
+ {
+  "word": "Ками́лла",
+  "pos": "name",
+  "gender": "feminine",
+  "animacy": "animate",
+  "fr": [
+   "Camille (prénom féminin)."
+  ],
+  "en": [
+   "Camille (female given name)"
+  ],
+  "forms": [
+   [
+    "Ками́лла",
+    "nominative singular"
+   ],
+   [
+    "Ками́ллы",
+    "genitive singular"
+   ],
+   [
+    "Ками́лле",
+    "dative singular"
+   ],
+   [
+    "Ками́ллу",
+    "accusative singular"
+   ],
+   [
+    "Ками́ллой",
+    "instrumental singular"
+   ],
+   [
+    "Ками́лле",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Ни́ка",
+  "pos": "name",
+  "gender": "feminine",
+  "animacy": "animate",
+  "fr": [
+   "Nika (prénom féminin, diminutif de Veronika)."
+  ],
+  "en": [
+   "Nika (female given name)"
+  ],
+  "forms": [
+   [
+    "Ни́ка",
+    "nominative singular"
+   ],
+   [
+    "Ни́ки",
+    "genitive singular"
+   ],
+   [
+    "Ни́ке",
+    "dative singular"
+   ],
+   [
+    "Ни́ку",
+    "accusative singular"
+   ],
+   [
+    "Ни́кой",
+    "instrumental singular"
+   ],
+   [
+    "Ни́ке",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Да́ша",
+  "pos": "name",
+  "gender": "feminine",
+  "animacy": "animate",
+  "fr": [
+   "Dacha (diminutif de Daria)."
+  ],
+  "en": [
+   "Dasha (diminutive of Darya)"
+  ],
+  "forms": [
+   [
+    "Да́ша",
+    "nominative singular"
+   ],
+   [
+    "Да́ши",
+    "genitive singular"
+   ],
+   [
+    "Да́ше",
+    "dative singular"
+   ],
+   [
+    "Да́шу",
+    "accusative singular"
+   ],
+   [
+    "Да́шей",
+    "instrumental singular"
+   ],
+   [
+    "Да́ше",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Гали́на",
+  "pos": "name",
+  "gender": "feminine",
+  "animacy": "animate",
+  "fr": [
+   "Galina (prénom féminin)."
+  ],
+  "en": [
+   "Galina (female given name)"
+  ],
+  "forms": [
+   [
+    "Гали́на",
+    "nominative singular"
+   ],
+   [
+    "Гали́ны",
+    "genitive singular"
+   ],
+   [
+    "Гали́не",
+    "dative singular"
+   ],
+   [
+    "Гали́ну",
+    "accusative singular"
+   ],
+   [
+    "Гали́ной",
+    "instrumental singular"
+   ],
+   [
+    "Гали́не",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Петро́вна",
+  "pos": "name",
+  "gender": "feminine",
+  "animacy": "animate",
+  "fr": [
+   "Petrovna (patronyme : fille de Piotr)."
+  ],
+  "en": [
+   "Petrovna (patronymic: daughter of Pyotr)"
+  ],
+  "forms": [
+   [
+    "Петро́вна",
+    "nominative singular"
+   ],
+   [
+    "Петро́вны",
+    "genitive singular"
+   ],
+   [
+    "Петро́вне",
+    "dative singular"
+   ],
+   [
+    "Петро́вну",
+    "accusative singular"
+   ],
+   [
+    "Петро́вной",
+    "instrumental singular"
+   ],
+   [
+    "Петро́вне",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Фёдор",
+  "pos": "name",
+  "gender": "masculine",
+  "animacy": "animate",
+  "fr": [
+   "Fiodor (prénom masculin, équivalent de Théodore)."
+  ],
+  "en": [
+   "Fyodor (male given name)"
+  ],
+  "forms": [
+   [
+    "Фёдор",
+    "nominative singular"
+   ],
+   [
+    "Фёдора",
+    "genitive singular"
+   ],
+   [
+    "Фёдору",
+    "dative singular"
+   ],
+   [
+    "Фёдора",
+    "accusative singular"
+   ],
+   [
+    "Фёдором",
+    "instrumental singular"
+   ],
+   [
+    "Фёдоре",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Артём",
+  "pos": "name",
+  "gender": "masculine",
+  "animacy": "animate",
+  "fr": [
+   "Artiom (prénom masculin)."
+  ],
+  "en": [
+   "Artyom (male given name)"
+  ],
+  "forms": [
+   [
+    "Артём",
+    "nominative singular"
+   ],
+   [
+    "Артёма",
+    "genitive singular"
+   ],
+   [
+    "Артёму",
+    "dative singular"
+   ],
+   [
+    "Артёма",
+    "accusative singular"
+   ],
+   [
+    "Артёмом",
+    "instrumental singular"
+   ],
+   [
+    "Артёме",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Лио́н",
+  "pos": "name",
+  "gender": "masculine",
+  "animacy": "inanimate",
+  "fr": [
+   "Lyon (ville de France)."
+  ],
+  "en": [
+   "Lyon (city in France)"
+  ],
+  "forms": [
+   [
+    "Лио́н",
+    "nominative singular"
+   ],
+   [
+    "Лио́на",
+    "genitive singular"
+   ],
+   [
+    "Лио́ну",
+    "dative singular"
+   ],
+   [
+    "Лио́н",
+    "accusative singular"
+   ],
+   [
+    "Лио́ном",
+    "instrumental singular"
+   ],
+   [
+    "Лио́не",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "Каза́нь",
+  "pos": "name",
+  "gender": "feminine",
+  "animacy": "inanimate",
+  "fr": [
+   "Kazan (capitale du Tatarstan, sur la Volga)."
+  ],
+  "en": [
+   "Kazan (capital of Tatarstan)"
+  ],
+  "forms": [
+   [
+    "Каза́нь",
+    "nominative singular"
+   ],
+   [
+    "Каза́ни",
+    "genitive singular"
+   ],
+   [
+    "Каза́ни",
+    "dative singular"
+   ],
+   [
+    "Каза́нь",
+    "accusative singular"
+   ],
+   [
+    "Каза́нью",
+    "instrumental singular"
+   ],
+   [
+    "Каза́ни",
+    "prepositional singular"
+   ]
+  ]
+ },
+ {
+  "word": "пирожо́к",
+  "pos": "noun",
+  "gender": "masculine",
+  "animacy": "inanimate",
+  "fr": [
+   "Pirojok, petit chausson farci (au chou, à la viande, aux pommes…)."
+  ],
+  "en": [
+   "pirozhok, small stuffed bun"
+  ],
+  "forms": [
+   [
+    "пирожо́к",
+    "nominative singular"
+   ],
+   [
+    "пирожка́",
+    "genitive singular"
+   ],
+   [
+    "пирожку́",
+    "dative singular"
+   ],
+   [
+    "пирожо́к",
+    "accusative singular"
+   ],
+   [
+    "пирожко́м",
+    "instrumental singular"
+   ],
+   [
+    "пирожке́",
+    "prepositional singular"
+   ],
+   [
+    "пирожки́",
+    "nominative plural"
+   ],
+   [
+    "пирожко́в",
+    "genitive plural"
+   ],
+   [
+    "пирожка́м",
+    "dative plural"
+   ],
+   [
+    "пирожки́",
+    "accusative plural"
+   ],
+   [
+    "пирожка́ми",
+    "instrumental plural"
+   ],
+   [
+    "пирожка́х",
+    "prepositional plural"
+   ]
+  ]
+ },
+ {
+  "word": "мину́тка",
+  "pos": "noun",
+  "gender": "feminine",
+  "animacy": "inanimate",
+  "fr": [
+   "Petite minute, minute (familier)."
+  ],
+  "en": [
+   "minute (diminutive)"
+  ],
+  "forms": [
+   [
+    "мину́тка",
+    "nominative singular"
+   ],
+   [
+    "мину́тки",
+    "genitive singular"
+   ],
+   [
+    "мину́тке",
+    "dative singular"
+   ],
+   [
+    "мину́тку",
+    "accusative singular"
+   ],
+   [
+    "мину́ткой",
+    "instrumental singular"
+   ],
+   [
+    "мину́тке",
+    "prepositional singular"
+   ],
+   [
+    "мину́тки",
+    "nominative plural"
+   ],
+   [
+    "мину́ток",
+    "genitive plural"
+   ],
+   [
+    "мину́ткам",
+    "dative plural"
+   ],
+   [
+    "мину́тки",
+    "accusative plural"
+   ],
+   [
+    "мину́тками",
+    "instrumental plural"
+   ],
+   [
+    "мину́тках",
+    "prepositional plural"
+   ]
+  ]
+ },
+ {
+  "word": "со",
+  "pos": "prep",
+  "fr": [
+   "Avec (variante de с devant certains groupes de consonnes).",
+   "De, depuis (variante de с)."
+  ],
+  "en": [
+   "with",
+   "from, off (variant of с)"
+  ],
+  "forms": []
+ }
+]
