@@ -18,8 +18,8 @@ Using [iloader](https://iloader.app/):
 ## Installing a build
 
 1. Push to `main` (or run the **Build** workflow by hand from the Actions tab).
-2. Open the finished run, download the `Pandouchka-unsigned-ipa` artifact, unzip it,
-   and save `Pandouchka.ipa` to Files on the phone.
+2. Open the finished run, download the `Pandouchka.ipa` artifact (it isn't zipped),
+   and save it to Files on the phone.
    Tagging a commit `v0.1.0` and pushing the tag also publishes the IPA as a release,
    which is easier to download from the phone.
 3. In SideStore: My Apps › + › pick the IPA.
