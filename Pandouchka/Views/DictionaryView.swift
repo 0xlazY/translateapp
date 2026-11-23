@@ -31,6 +31,7 @@ struct DictionaryView: View {
                     Section("Apple translation (on device)") { machineRow }
                 }
             }
+            .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .navigationTitle("Dictionary")
@@ -47,10 +48,10 @@ struct DictionaryView: View {
             NavigationLink(value: e) {
                 VStack(alignment: .leading, spacing: 3) {
                     HStack(alignment: .firstTextBaseline) {
-                        Text(e.word).font(Fonts.reading(20)).foregroundStyle(Palette.ink)
-                        Text(Grammar.partOfSpeech(e.pos)).font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
+                        Text(e.word).font(Fonts.reading(21)).foregroundStyle(Palette.ink)
+                        Text(Grammar.partOfSpeech(e.pos)).font(Fonts.italic(13)).foregroundStyle(Palette.muted)
                     }
-                    Text(e.shortFrench).font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted).lineLimit(2)
+                    Text(e.shortFrench).font(Fonts.italic(15)).foregroundStyle(Palette.pen).lineLimit(2)
                 }
             }
         }
@@ -88,14 +89,15 @@ struct DictionaryView: View {
 
     private var intro: some View {
         Section {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Type in Russian or French.").font(Fonts.ui(.headline))
-                Text("No Russian keyboard? Type it in Latin letters: “privet” finds привет, “khorosho” finds хорошо.")
-                    .font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
-                Text("Whole sentences are translated on your device by Apple. The first time, iOS asks to download the Russian and French languages.")
-                    .font(Fonts.ui(.footnote)).foregroundStyle(Palette.muted)
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Russian or French.").font(Fonts.display(24)).foregroundStyle(Palette.ink)
+                Text("No Russian keyboard? Type in Latin letters: privet finds привет, khorosho finds хорошо.")
+                    .font(Fonts.italic(16)).foregroundStyle(Palette.muted)
+                Text("Whole sentences are translated on the device by Apple. The first time, iOS asks to download Russian and French.")
+                    .font(Fonts.italic(14)).foregroundStyle(Palette.muted)
             }
             .padding(.vertical, 6)
+            .listRowBackground(Color.clear)
         }
     }
 

@@ -30,7 +30,7 @@ struct RootView: View {
                 DictionaryView()
             }
         }
-        .tint(Palette.blue)
+        .tint(Palette.pen)
         .environmentObject(router)
         .modifier(TranslationHost(translator: translator))
         .fullScreenCover(isPresented: $router.reviewing) {

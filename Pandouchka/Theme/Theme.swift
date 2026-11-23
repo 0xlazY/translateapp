@@ -12,126 +12,126 @@ extension Color {
     }
 }
 
-/// Ink-on-paper base with the blue, white and red that France and Russia share.
+/// «Cahier de russe»: a French school notebook. Off-white paper, a red margin,
+/// fountain-pen blue for what you write, black for what is printed.
 enum Palette {
-    static let paper = Color(light: 0xF6F3EC, dark: 0x0E1120)
-    static let surface = Color(light: 0xFFFFFF, dark: 0x191D31)
-    static let sunken = Color(light: 0xECE7DC, dark: 0x23283F)
-    static let ink = Color(light: 0x1B2140, dark: 0xEDEFF7)
-    static let muted = Color(light: 0x6B6F82, dark: 0x9499AE)
-    static let line = Color(light: 0xDDD6C8, dark: 0x2E3450)
-    static let blue = Color(light: 0x2747D0, dark: 0x7B95FF)
-    static let red = Color(light: 0xD3223C, dark: 0xFF6C7C)
-    static let green = Color(light: 0x23845A, dark: 0x58D196)
-    static let amber = Color(light: 0xC77700, dark: 0xFFB547)
-    static let violet = Color(light: 0x6A3FC2, dark: 0xB496FF)
-    static let teal = Color(light: 0x0F7C8C, dark: 0x4FD2E0)
+    static let paper = Color(light: 0xFBF8F0, dark: 0x16171B)
+    static let sheet = Color(light: 0xFFFEFA, dark: 0x1E1F24)
+    static let ink = Color(light: 0x1D1C1A, dark: 0xEAE6DC)
+    static let muted = Color(light: 0x7A756B, dark: 0x8F8A80)
+    static let rule = Color(light: 0xE2DBCB, dark: 0x2E3036)
+    /// Fountain-pen blue.
+    static let pen = Color(light: 0x2849A6, dark: 0x93A9F2)
+    /// The red margin line.
+    static let margin = Color(light: 0xD8524A, dark: 0xEE7C72)
+    /// Seyès ruling.
+    static let seyes = Color(light: 0xC9D6EC, dark: 0x2A3348)
+    /// Highlighter, for the sentence being read.
+    static let highlighter = Color(light: 0xF6E8A0, dark: 0x4A4220)
+    static let green = Color(light: 0x2E7D4F, dark: 0x6FCB95)
+    static let amber = Color(light: 0xB86E00, dark: 0xF0B24A)
 
-    static func theme(_ name: String) -> Color {
-        switch name {
-        case "red": return red
-        case "green": return green
-        case "amber": return amber
-        case "violet": return violet
-        case "teal": return teal
-        default: return blue
-        }
-    }
-
-    /// Memory strength: red when fragile, blue when solid.
+    /// Memory strength: red margin when fragile, pen blue when solid.
     static func memory(_ r: Double) -> Color {
         switch r {
-        case ..<0.5: return red
-        case ..<0.8: return amber
-        case ..<0.93: return green
-        default: return blue
+        case ..<0.6: return margin
+        case ..<0.85: return amber
+        default: return pen
         }
     }
 }
 
 enum Fonts {
-    static func display(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
+    static func display(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
         .system(size: size, weight: weight, design: .serif)
     }
     static func reading(_ size: CGFloat) -> Font { .system(size: size, weight: .regular, design: .serif) }
+    static func italic(_ size: CGFloat) -> Font { .system(size: size, weight: .regular, design: .serif).italic() }
     static func ui(_ style: Font.TextStyle, weight: Font.Weight = .regular) -> Font {
-        .system(style, design: .rounded).weight(weight)
+        .system(style).weight(weight)
     }
 }
 
-/// The tricolour motif: vertical stripes for French, horizontal for Russian.
-struct Tricolor: View {
-    enum Axis { case french, russian }
-    var axis: Axis
+/// Small letter-spaced capitals used for section labels.
+struct Eyebrow: View {
+    let text: String
+    var color: Color = Palette.muted
+    init(_ text: String, color: Color = Palette.muted) {
+        self.text = text
+        self.color = color
+    }
     var body: some View {
-        switch axis {
-        case .french:
-            HStack(spacing: 0) {
-                Palette.blue
-                Color.white
-                Palette.red
-            }
-        case .russian:
-            VStack(spacing: 0) {
-                Color.white
-                Palette.blue
-                Palette.red
+        Text(text.uppercased())
+            .font(.system(size: 11, weight: .semibold))
+            .tracking(1.6)
+            .foregroundStyle(color)
+    }
+}
+
+/// A hairline rule.
+struct Rule: View {
+    var color: Color = Palette.rule
+    var body: some View {
+        Rectangle().fill(color).frame(height: 0.75)
+    }
+}
+
+/// Paper with the red margin line of a French notebook.
+struct NotebookPaper: View {
+    var marginX: CGFloat = 26
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            Palette.paper
+            Rectangle().fill(Palette.margin.opacity(0.55)).frame(width: 1.2).padding(.leading, marginX)
+        }
+        .ignoresSafeArea()
+    }
+}
+
+/// Seyès ruling: a strong line every four faint ones, as in French school notebooks.
+struct SeyesRuling: View {
+    var pitch: CGFloat = 8
+    var body: some View {
+        Canvas { ctx, size in
+            var y: CGFloat = pitch
+            var i = 1
+            while y < size.height {
+                let strong = i % 4 == 0
+                var p = Path()
+                p.move(to: CGPoint(x: 0, y: y))
+                p.addLine(to: CGPoint(x: size.width, y: y))
+                ctx.stroke(p, with: .color(Palette.seyes.opacity(strong ? 1 : 0.45)), lineWidth: strong ? 0.8 : 0.5)
+                y += pitch
+                i += 1
             }
         }
     }
 }
 
-struct CardBackground: ViewModifier {
-    var radius: CGFloat = 22
-    func body(content: Content) -> some View {
-        content
-            .background(Palette.surface, in: RoundedRectangle(cornerRadius: radius, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: radius, style: .continuous).stroke(Palette.line.opacity(0.6), lineWidth: 0.5))
-            .shadow(color: Color.black.opacity(0.06), radius: 12, y: 6)
-    }
-}
-
-extension View {
-    func card(radius: CGFloat = 22) -> some View { modifier(CardBackground(radius: radius)) }
-}
-
-struct Chip: View {
-    var text: String
-    var color: Color = Palette.blue
-    var filled = false
-    var body: some View {
-        Text(text)
-            .font(Fonts.ui(.caption, weight: .semibold))
-            .padding(.horizontal, 9)
-            .padding(.vertical, 4)
-            .foregroundStyle(filled ? Color.white : color)
-            .background(filled ? color : color.opacity(0.12), in: Capsule())
-    }
-}
-
-struct PrimaryButtonStyle: ButtonStyle {
-    var color: Color = Palette.blue
+/// Solid pen-blue button with square-ish corners.
+struct InkButtonStyle: ButtonStyle {
+    var color: Color = Palette.pen
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(Fonts.ui(.headline, weight: .semibold))
-            .foregroundStyle(.white)
+            .font(.system(.body).weight(.semibold))
+            .foregroundStyle(Palette.sheet)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 15)
-            .background(color, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(.spring(duration: 0.2), value: configuration.isPressed)
+            .padding(.vertical, 14)
+            .background(color.opacity(configuration.isPressed ? 0.8 : 1), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
     }
 }
 
-struct SoftButtonStyle: ButtonStyle {
-    var color: Color = Palette.blue
+/// Outlined button: a box drawn in pen.
+struct OutlineButtonStyle: ButtonStyle {
+    var color: Color = Palette.pen
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(Fonts.ui(.subheadline, weight: .semibold))
+            .font(.system(.subheadline).weight(.semibold))
             .foregroundStyle(color)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-            .background(color.opacity(configuration.isPressed ? 0.22 : 0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .background(color.opacity(configuration.isPressed ? 0.08 : 0), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 5, style: .continuous).stroke(color.opacity(0.6), lineWidth: 1))
     }
 }
 
@@ -170,5 +170,15 @@ struct FlowLayout: Layout {
             x += s.width + spacing
             lineHeight = max(lineHeight, s.height)
         }
+    }
+}
+
+extension Date {
+    /// "понедельник, 23 ноября"
+    var russianDay: String {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "ru_RU")
+        f.setLocalizedDateFormatFromTemplate("EEEEdMMMM")
+        return f.string(from: self)
     }
 }

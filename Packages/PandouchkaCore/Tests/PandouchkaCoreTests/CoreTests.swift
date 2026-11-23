@@ -162,16 +162,18 @@ final class GrammarTests: XCTestCase {
         XCTAssertEqual(Grammar.describe("lemma"), "dictionary form")
     }
 
-    func testStreak() {
-        var cal = Calendar(identifier: .gregorian)
-        cal.timeZone = TimeZone(identifier: "UTC")!
-        let today = Date(timeIntervalSince1970: 1_700_000_000)
-        func c(_ offset: Int) -> DateComponents {
-            cal.dateComponents([.year, .month, .day], from: cal.date(byAdding: .day, value: offset, to: today)!)
-        }
-        XCTAssertEqual(Streak.days(activeDays: [c(0), c(-1), c(-2), c(-4)], today: today, calendar: cal), 3)
-        XCTAssertEqual(Streak.days(activeDays: [c(-1), c(-2)], today: today, calendar: cal), 2)
-        XCTAssertEqual(Streak.days(activeDays: [c(-2)], today: today, calendar: cal), 0)
+    func testCaseExamples() {
+        XCTAssertEqual(CaseExamples.noun("prepositional", plural: false, form: "окне\u{301}")?.russian, "об окне\u{301}")
+        XCTAssertEqual(CaseExamples.noun("prepositional", plural: false, form: "кни\u{301}ге")?.russian, "о кни\u{301}ге")
+        XCTAssertEqual(CaseExamples.noun("instrumental", plural: false, form: "стака\u{301}ном")?.russian, "со стака\u{301}ном")
+        XCTAssertEqual(CaseExamples.noun("instrumental", plural: false, form: "ма\u{301}мой")?.russian, "с ма\u{301}мой")
+        XCTAssertEqual(CaseExamples.noun("dative", plural: false, form: "дру\u{301}гу")?.russian, "к дру\u{301}гу")
+        XCTAssertEqual(CaseExamples.noun("dative", plural: false, form: "дню")?.russian, "ко дню")
+        XCTAssertEqual(CaseExamples.noun("dative", plural: false, form: "сне\u{301}гу")?.russian, "к сне\u{301}гу")
+        XCTAssertEqual(CaseExamples.noun("dative", plural: false, form: "гро\u{301}бу")?.russian, "к гро\u{301}бу")
+        XCTAssertEqual(CaseExamples.noun("genitive", plural: true, form: "книг")?.russian, "много книг")
+        XCTAssertNil(CaseExamples.noun("genitive", plural: false, form: "—"))
+        XCTAssertEqual(CaseExamples.question("genitive"), "кого? чего?")
     }
 }
 
@@ -195,5 +197,16 @@ final class StoryDataTests: XCTestCase {
                 XCTAssertTrue(q.options.indices.contains(q.answer), "\(s.id): \(q.ru)")
             }
         }
+    }
+}
+
+final class TimingTests: XCTestCase {
+    func testLineAtTime() {
+        let t = StoryTiming(voice: "x", duration: 10, lines: [.init(start: 0.2, end: 2), .init(start: 2.5, end: 5), .init(start: 5.6, end: 9)])
+        XCTAssertNil(t.line(at: 0.1))
+        XCTAssertEqual(t.line(at: 1), 0)
+        XCTAssertEqual(t.line(at: 2.2), 0)
+        XCTAssertEqual(t.line(at: 2.5), 1)
+        XCTAssertEqual(t.line(at: 9.5), 2)
     }
 }

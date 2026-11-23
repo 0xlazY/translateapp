@@ -8,7 +8,8 @@ is tappable, an offline French ↔ Russian dictionary, and spaced-repetition fla
 - **Stories.** 16 original stories, A1 and A2, following Camille, a student from Lyon,
   in Kazan. Every word opens its dictionary entry, with the form explained
   (книгу → кни́га, accusative singular). Sentence translations on demand, read-aloud with
-  word highlighting, key words, and a short quiz per story.
+  a recorded narration (scrub, ±10 s, slower speeds, lock-screen controls) that
+  highlights the sentence being read, key words, and a short quiz per story.
 - **Words you know show in the text.** Words in your deck are underlined in a colour
   that tracks how well you remember them. Each story shows the share of its words you
   already know.
@@ -59,6 +60,13 @@ gzip -9 -c Pandouchka/Resources/dictionary.sqlite > Data/dictionary.sqlite.gz
 # Stories (source of truth: tools/make_stories.py)
 python3 tools/make_stories.py Pandouchka/Stories/stories.json
 
+# Narration (Silero neural TTS, CPU, a few minutes for all stories)
+podman build -t pandouchka-tts -f tools/tts.Containerfile tools
+podman run --rm -v "$PWD:/repo:Z" -v pandouchka-tts-cache:/cache pandouchka-tts \
+  python /repo/tools/make_audio.py --sample           # voice-samples/*.mp3, pick a speaker
+podman run --rm -v "$PWD:/repo:Z" -v pandouchka-tts-cache:/cache pandouchka-tts \
+  python /repo/tools/make_audio.py --speaker xenia    # Pandouchka/Stories/Audio/
+
 # Icon
 python3 tools/make_icon.py Pandouchka/Assets.xcassets/AppIcon.appiconset/icon-1024.png
 python3 tools/make_icon.py Pandouchka/Assets.xcassets/Logo.imageset/logo.png 512
@@ -82,4 +90,5 @@ characters' names, for example).
 - Dictionary data: [Wiktionary](https://www.wiktionary.org/) contributors, CC BY-SA 4.0,
   extracted by [wiktextract](https://github.com/tatuylonen/wiktextract) / kaikki.org.
 - Word frequencies: [FrequencyWords](https://github.com/hermitdave/FrequencyWords), MIT.
+- Narration: [Silero](https://github.com/snakers4/silero-models) Russian TTS, CC BY-NC-SA 4.0.
 - Scheduling: [FSRS](https://github.com/open-spaced-repetition) default parameters.

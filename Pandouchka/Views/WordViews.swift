@@ -2,7 +2,16 @@ import SwiftData
 import SwiftUI
 import PandouchkaCore
 
-/// Opened from a tapped word: shows what it is in this sentence, then the dictionary entry.
+/// Plays the best pronunciation available: a native Wiktionary recording when online,
+/// otherwise the system voice.
+@MainActor
+enum Pronounce {
+    static func word(_ entry: DictEntry) {
+        if let url = entry.audio { Speech.shared.play(url: url) } else { Speech.shared.say(entry.word, slow: true) }
+    }
+}
+
+/// Opened from a tapped word: what it is in this sentence, then the dictionary entry.
 struct WordSheet: View {
     let selection: WordSelection
     @State private var matches: [DictMatch] = []
@@ -13,7 +22,7 @@ struct WordSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 18) {
                     if loading {
                         ProgressView().frame(maxWidth: .infinity).padding(40)
                     } else if matches.isEmpty {
@@ -26,7 +35,8 @@ struct WordSheet: View {
                             .id(m.entry.id)
                     }
                 }
-                .padding(18)
+                .padding(.horizontal, 22)
+                .padding(.vertical, 18)
             }
             .background(Palette.paper.ignoresSafeArea())
             .navigationBarTitleDisplayMode(.inline)
@@ -43,17 +53,18 @@ struct WordSheet: View {
 
     private var candidatePicker: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            HStack(spacing: 18) {
                 ForEach(Array(matches.prefix(6).enumerated()), id: \.offset) { i, m in
                     Button { withAnimation(.snappy) { chosen = i } } label: {
                         VStack(alignment: .leading, spacing: 1) {
-                            Text(m.entry.word).font(Fonts.reading(16))
-                            Text(Grammar.partOfSpeech(m.entry.pos)).font(Fonts.ui(.caption2))
+                            Text(m.entry.word).font(Fonts.reading(17))
+                            Text(Grammar.partOfSpeech(m.entry.pos)).font(Fonts.italic(12))
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .foregroundStyle(chosen == i ? Color.white : Palette.ink)
-                        .background(chosen == i ? Palette.ink : Palette.surface, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .foregroundStyle(chosen == i ? Palette.pen : Palette.muted)
+                        .padding(.bottom, 4)
+                        .overlay(alignment: .bottom) {
+                            Rectangle().fill(chosen == i ? Palette.pen : .clear).frame(height: 1.5)
+                        }
                     }
                     .buttonStyle(.plain)
                 }
@@ -63,31 +74,30 @@ struct WordSheet: View {
 
     @ViewBuilder
     private func formLine(_ m: DictMatch) -> some View {
-        if RussianText.key(m.entry.word) != RussianText.key(selection.word) || !m.readings.filter({ $0 != "dictionary form" }).isEmpty {
+        let readings = m.readings.filter { $0 != "dictionary form" }
+        if RussianText.key(m.entry.word) != RussianText.key(selection.word) || !readings.isEmpty {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text(RussianDictionary.shared.stressed(selection.word)).font(Fonts.reading(20)).foregroundStyle(Palette.ink)
-                    Image(systemName: "arrow.right").font(.caption).foregroundStyle(Palette.muted)
-                    Text(m.entry.word).font(Fonts.reading(20)).foregroundStyle(Palette.blue)
+                    Text("←").foregroundStyle(Palette.muted)
+                    Text(m.entry.word).font(Fonts.reading(20)).foregroundStyle(Palette.pen)
                 }
-                let readings = m.readings.filter { $0 != "dictionary form" }
                 if !readings.isEmpty {
-                    Text(readings.prefix(4).joined(separator: " · ")).font(Fonts.ui(.footnote)).foregroundStyle(Palette.muted)
+                    Text(readings.prefix(4).joined(separator: " · ")).font(Fonts.italic(14)).foregroundStyle(Palette.muted)
                 }
             }
-            .padding(12)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Palette.blue.opacity(0.07), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .padding(.leading, 12)
+            .overlay(alignment: .leading) { Rectangle().fill(Palette.margin).frame(width: 2) }
         }
     }
 
     private var notFound: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(selection.word).font(Fonts.display(34)).foregroundStyle(Palette.ink)
-            Text("Not in the offline dictionary.").font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
+            Text("Not in the offline dictionary.").font(Fonts.italic(15)).foregroundStyle(Palette.muted)
             if let fallback {
-                Text(fallback).font(Fonts.ui(.title3)).foregroundStyle(Palette.ink)
-                Text("Machine translation (Apple, on device)").font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
+                Text(fallback).font(Fonts.reading(20)).foregroundStyle(Palette.pen)
+                Eyebrow("Machine translation, on device")
             }
             AddCardButton(record: CardRecord(russian: selection.word, french: fallback ?? "", example: selection.sentence,
                                              exampleTranslation: selection.translation, tags: [selection.source]))
@@ -100,7 +110,9 @@ struct WordDetailView: View {
     let entry: DictEntry
     var body: some View {
         ScrollView {
-            WordDetailContent(entry: entry, context: nil).padding(18)
+            WordDetailContent(entry: entry, context: nil)
+                .padding(.horizontal, 22)
+                .padding(.vertical, 18)
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
@@ -117,77 +129,75 @@ struct WordDetailContent: View {
     @State private var chosenGlosses: Set<Int> = []
     @State private var showEnglish = false
     @State private var showForms = false
+    @State private var hasForms = false
 
     private var isKnown: Bool { known.contains { $0.key == entry.key } }
-
     private var glosses: [String] { entry.french.map(DictEntry.clean) }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             headword
             if !glosses.isEmpty { frenchSection }
             if !entry.english.isEmpty { englishSection }
             if !entry.pairs.isEmpty { pairsSection }
-            if !entry.examples.isEmpty { examplesSection }
             if let ctx = context, !ctx.sentence.isEmpty { contextSection(ctx) }
-            actions
-            if !RussianDictionary.shared.forms(of: entry.id).isEmpty {
+            if !entry.examples.isEmpty { examplesSection }
+            if hasForms {
                 Button { showForms = true } label: {
-                    Label(entry.pos == "verb" ? "Conjugation" : "Declension", systemImage: "tablecells")
+                    HStack {
+                        Text(entry.pos == "verb" ? "Conjugation" : "Declension")
+                        Spacer()
+                        Image(systemName: "arrow.right")
+                    }
                 }
-                .buttonStyle(SoftButtonStyle(color: Palette.ink))
+                .buttonStyle(OutlineButtonStyle(color: Palette.ink))
             }
-            Text("Wiktionary · CC BY-SA 4.0").font(Fonts.ui(.caption2)).foregroundStyle(Palette.muted.opacity(0.7))
+            actions
+            Text("Wiktionary · CC BY-SA 4.0").font(.system(size: 10)).foregroundStyle(Palette.muted.opacity(0.7))
         }
         .sheet(isPresented: $showForms) {
             NavigationStack { FormsTable(entry: entry) }
         }
         .onAppear {
             if chosenGlosses.isEmpty { chosenGlosses = Set(0..<min(2, glosses.count)) }
+            hasForms = !RussianDictionary.shared.forms(of: entry.id).isEmpty
         }
     }
 
     private var headword: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
-                Text(entry.word).font(Fonts.display(38)).foregroundStyle(Palette.ink)
+                Text(entry.word).font(Fonts.display(40)).foregroundStyle(Palette.ink)
                     .textSelection(.enabled)
-                HStack(spacing: 6) {
-                    Text(entry.grammarLine).font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
-                    if let ipa = entry.ipa { Text("[\(ipa)]").font(Fonts.ui(.caption)).foregroundStyle(Palette.muted) }
+                HStack(spacing: 8) {
+                    Text(entry.grammarLine).font(Fonts.italic(15)).foregroundStyle(Palette.muted)
+                    if let ipa = entry.ipa { Text("[\(ipa)]").font(.system(size: 13)).foregroundStyle(Palette.muted) }
                 }
             }
             Spacer()
-            VStack(spacing: 8) {
-                Button { Speech.shared.say(entry.word) } label: {
-                    Image(systemName: "speaker.wave.2.fill").frame(width: 44, height: 44)
-                        .background(Palette.blue.opacity(0.12), in: Circle())
-                }
-                if let url = entry.audio {
-                    Button { Speech.shared.play(url: url) } label: {
-                        Image(systemName: "person.wave.2.fill").frame(width: 44, height: 44)
-                            .background(Palette.red.opacity(0.12), in: Circle())
-                    }
-                    .tint(Palette.red)
-                    .accessibilityLabel("Native recording")
-                }
+            Button { Pronounce.word(entry) } label: {
+                Image(systemName: "speaker.wave.2")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundStyle(Palette.pen)
+                    .frame(width: 46, height: 46)
+                    .overlay(Circle().stroke(Palette.pen.opacity(0.5), lineWidth: 1))
             }
+            .accessibilityLabel("Pronounce")
         }
     }
 
     private var frenchSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            sectionTitle(context == nil ? "Meaning" : "Meaning · tap to choose for the card")
+        VStack(alignment: .leading, spacing: 10) {
+            Eyebrow(context == nil ? "Meaning" : "Meaning · tick what goes on the card")
             ForEach(Array(glosses.enumerated()), id: \.offset) { i, g in
                 Button {
                     if chosenGlosses.contains(i) { chosenGlosses.remove(i) } else { chosenGlosses.insert(i) }
                 } label: {
-                    HStack(alignment: .top, spacing: 10) {
-                        Text("\(i + 1)").font(Fonts.ui(.caption, weight: .bold))
-                            .frame(width: 22, height: 22)
-                            .background(chosenGlosses.contains(i) ? Palette.blue : Palette.sunken, in: Circle())
-                            .foregroundStyle(chosenGlosses.contains(i) ? Color.white : Palette.muted)
-                        Text(g).font(Fonts.ui(.body)).foregroundStyle(Palette.ink).multilineTextAlignment(.leading)
+                    HStack(alignment: .firstTextBaseline, spacing: 10) {
+                        Text(chosenGlosses.contains(i) ? "☑" : "☐")
+                            .font(.system(size: 17))
+                            .foregroundStyle(chosenGlosses.contains(i) ? Palette.pen : Palette.muted)
+                        Text(g).font(Fonts.reading(18)).foregroundStyle(Palette.ink).multilineTextAlignment(.leading)
                         Spacer(minLength: 0)
                     }
                 }
@@ -200,14 +210,16 @@ struct WordDetailContent: View {
         VStack(alignment: .leading, spacing: 6) {
             Button { withAnimation(.snappy) { showEnglish.toggle() } } label: {
                 HStack {
-                    sectionTitle(glosses.isEmpty ? "Meaning (English)" : "In English")
-                    Image(systemName: showEnglish || glosses.isEmpty ? "chevron.up" : "chevron.down").font(.caption2).foregroundStyle(Palette.muted)
+                    Eyebrow(glosses.isEmpty ? "Meaning (English)" : "In English")
+                    if !glosses.isEmpty {
+                        Image(systemName: showEnglish ? "minus" : "plus").font(.caption2).foregroundStyle(Palette.muted)
+                    }
                 }
             }
             .buttonStyle(.plain)
             if showEnglish || glosses.isEmpty {
                 ForEach(entry.english, id: \.self) { g in
-                    Text("• " + g).font(Fonts.ui(.subheadline)).foregroundStyle(Palette.ink.opacity(0.85))
+                    Text("– " + g).font(Fonts.reading(16)).foregroundStyle(Palette.ink.opacity(0.85))
                 }
             }
         }
@@ -215,17 +227,15 @@ struct WordDetailContent: View {
 
     private var pairsSection: some View {
         VStack(alignment: .leading, spacing: 6) {
-            sectionTitle(entry.aspect == "perfective" ? "Imperfective partner" : "Perfective partner")
-            HStack {
+            Eyebrow(entry.aspect == "perfective" ? "Imperfective partner" : "Perfective partner")
+            HStack(spacing: 16) {
                 ForEach(entry.pairs, id: \.self) { p in
                     if let e = RussianDictionary.shared.entry(word: p) {
                         NavigationLink(value: e) {
-                            Text(p).font(Fonts.reading(18))
-                                .padding(.horizontal, 12).padding(.vertical, 6)
-                                .background(Palette.surface, in: Capsule())
+                            Text(p).font(Fonts.reading(19)).foregroundStyle(Palette.pen).underline()
                         }
                     } else {
-                        Text(p).font(Fonts.reading(18))
+                        Text(p).font(Fonts.reading(19))
                     }
                 }
             }
@@ -233,29 +243,37 @@ struct WordDetailContent: View {
     }
 
     private var examplesSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            sectionTitle("Examples")
+        VStack(alignment: .leading, spacing: 10) {
+            Eyebrow("Examples")
             ForEach(entry.examples, id: \.self) { ex in
                 VStack(alignment: .leading, spacing: 2) {
                     Text(ex.first ?? "").font(Fonts.reading(17)).foregroundStyle(Palette.ink)
-                        .onTapGesture { Speech.shared.say(ex.first ?? "") }
-                    if ex.count > 1 { Text(ex[1]).font(Fonts.ui(.footnote)).italic().foregroundStyle(Palette.muted) }
+                    if ex.count > 1 { Text(ex[1]).font(Fonts.italic(15)).foregroundStyle(Palette.pen) }
                 }
             }
         }
     }
 
     private func contextSection(_ ctx: WordSelection) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            sectionTitle("In the text")
-            Text(ctx.sentence).font(Fonts.reading(17)).foregroundStyle(Palette.ink)
+        VStack(alignment: .leading, spacing: 6) {
+            Eyebrow("In the story")
+            Text(ctx.sentence).font(Fonts.reading(18)).foregroundStyle(Palette.ink)
             if !ctx.translation.isEmpty {
-                Text(ctx.translation).font(Fonts.ui(.footnote)).italic().foregroundStyle(Palette.muted)
+                Text(ctx.translation).font(Fonts.italic(15)).foregroundStyle(Palette.pen)
+            }
+            if let line = ctx.line, StoryPlayer.shared.storyID == ctx.source, StoryPlayer.shared.isLoaded {
+                Button {
+                    StoryPlayer.shared.play(line: line)
+                } label: {
+                    Label("Play this sentence", systemImage: "play.fill")
+                        .font(.system(.subheadline).weight(.semibold))
+                }
+                .foregroundStyle(Palette.pen)
+                .padding(.top, 2)
             }
         }
-        .padding(12)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Palette.sunken.opacity(0.6), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .padding(.leading, 12)
+        .overlay(alignment: .leading) { Rectangle().fill(Palette.highlighter).frame(width: 3) }
     }
 
     private var cardRecord: CardRecord {
@@ -273,10 +291,12 @@ struct WordDetailContent: View {
             Button {
                 toggleKnown()
             } label: {
-                Label(isKnown ? "Marked as known" : "I already know this", systemImage: isKnown ? "checkmark.circle.fill" : "checkmark.circle")
+                Text(isKnown ? "✓ Marked as known" : "I already know this word")
+                    .font(Fonts.italic(16))
                     .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
             }
-            .buttonStyle(SoftButtonStyle(color: isKnown ? Palette.green : Palette.muted))
+            .foregroundStyle(isKnown ? Palette.pen : Palette.muted)
         }
     }
 
@@ -288,13 +308,9 @@ struct WordDetailContent: View {
         }
         try? modelContext.save()
     }
-
-    private func sectionTitle(_ s: String) -> some View {
-        Text(s).font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-    }
 }
 
-/// "Add to cards", or "In your cards" when the word is already there.
+/// "Add to cards", or a note that the word is already there.
 struct AddCardButton: View {
     let record: CardRecord
     @Environment(\.modelContext) private var context
@@ -309,35 +325,28 @@ struct AddCardButton: View {
     var body: some View {
         if let card = existing {
             HStack {
-                Label("In your cards", systemImage: "rectangle.stack.badge.checkmark")
-                    .font(Fonts.ui(.headline))
-                    .foregroundStyle(Palette.green)
+                Text("✓ In your cards").font(Fonts.italic(17)).foregroundStyle(Palette.pen)
                 Spacer()
                 Button("Edit") { editing = card }
-                    .buttonStyle(SoftButtonStyle(color: Palette.green))
+                    .buttonStyle(OutlineButtonStyle())
             }
-            .padding(12)
-            .background(Palette.green.opacity(0.08), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .sheet(item: $editing) { CardEditor(card: $0) }
         } else {
-            Button {
-                let c = CardStore.add(record, in: context)
+            Button("Add to my cards") {
+                CardStore.add(record, in: context)
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
-                _ = c
-            } label: {
-                Label("Add to cards", systemImage: "plus.rectangle.on.rectangle")
             }
-            .buttonStyle(PrimaryButtonStyle(color: Palette.red))
+            .buttonStyle(InkButtonStyle(color: Palette.margin))
             .disabled(record.french.isEmpty && record.russian.isEmpty)
         }
     }
 }
 
-/// Declension or conjugation grid.
+/// Declension or conjugation, full width, with an example for every case.
 struct FormsTable: View {
     let entry: DictEntry
     @Environment(\.dismiss) private var dismiss
-    private var forms: [DictForm] { RussianDictionary.shared.forms(of: entry.id) }
+    @State private var forms: [DictForm] = []
 
     private func cell(_ required: [String], excluding: [String] = []) -> String {
         var seen: [String] = []
@@ -350,61 +359,114 @@ struct FormsTable: View {
         return seen.isEmpty ? "—" : seen.joined(separator: ", ")
     }
 
+    /// First spelling only, for example phrases.
+    private func first(_ s: String) -> String { s.components(separatedBy: ", ").first ?? s }
+
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
-                Text(entry.word).font(Fonts.display(30)).foregroundStyle(Palette.ink)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(entry.word).font(Fonts.display(32)).foregroundStyle(Palette.ink)
+                    Spacer()
+                    Text(entry.grammarLine).font(Fonts.italic(14)).foregroundStyle(Palette.muted)
+                }
+                .padding(.bottom, 12)
                 switch entry.pos {
-                case "verb": verbTables
+                case "verb": verbTable
                 case "adj", "pron", "det", "num": adjectiveTable
                 default: nounTable
                 }
             }
-            .padding(18)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationTitle(entry.pos == "verb" ? "Conjugation" : "Declension")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        .onAppear { forms = RussianDictionary.shared.forms(of: entry.id) }
     }
 
-    private func grid(_ title: String?, columns: [String], rows: [(String, [String])]) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            if let title { Text(title).font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase) }
-            Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 8) {
-                GridRow {
-                    Text("")
-                    ForEach(columns, id: \.self) { Text($0).font(Fonts.ui(.caption2, weight: .semibold)).foregroundStyle(Palette.muted) }
-                }
-                ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
-                    GridRow {
-                        Text(row.0).font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
-                        ForEach(Array(row.1.enumerated()), id: \.offset) { _, v in
-                            Text(v).font(Fonts.reading(16)).foregroundStyle(Palette.ink)
-                                .onTapGesture { if v != "—" { Speech.shared.say(v) } }
+    private static let caseNames = ["Nominative", "Genitive", "Dative", "Accusative", "Instrumental", "Prepositional"]
+
+    private func speakable(_ text: String, font: Font, color: Color = Palette.ink) -> some View {
+        Text(text).font(font).foregroundStyle(color)
+            .onTapGesture { if text != "—" { Speech.shared.say(text, slow: true) } }
+    }
+
+    // Nouns: one block per case, singular and plural side by side, each with an example.
+    private var nounTable: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Spacer().frame(maxWidth: .infinity)
+                Eyebrow("singular").frame(maxWidth: .infinity, alignment: .leading)
+                Eyebrow("plural").frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.bottom, 6)
+            Rule()
+            ForEach(Array(Grammar.cases.enumerated()), id: \.offset) { i, c in
+                let sg = cell([c, "singular"])
+                let pl = cell([c, "plural"])
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(alignment: .firstTextBaseline) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(Self.caseNames[i]).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink)
+                            Text(CaseExamples.question(c)).font(Fonts.italic(13)).foregroundStyle(Palette.margin)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        speakable(sg, font: Fonts.reading(20)).frame(maxWidth: .infinity, alignment: .leading)
+                        speakable(pl, font: Fonts.reading(20)).frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    HStack(alignment: .top) {
+                        Color.clear.frame(maxWidth: .infinity, maxHeight: 1)
+                        example(c, plural: false, form: first(sg)).frame(maxWidth: .infinity, alignment: .leading)
+                        example(c, plural: true, form: first(pl)).frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .padding(.vertical, 12)
+                Rule()
             }
-            .padding(14)
-            .card(radius: 16)
         }
     }
 
-    private static let caseLabels = ["nom.", "gen.", "dat.", "acc.", "instr.", "prep."]
-
-    private var nounTable: some View {
-        grid(nil, columns: ["singular", "plural"], rows: zip(Self.caseLabels, Grammar.cases).map { label, c in
-            (label, [cell([c, "singular"]), cell([c, "plural"])])
-        })
+    @ViewBuilder
+    private func example(_ c: String, plural: Bool, form: String) -> some View {
+        if let ex = CaseExamples.noun(c, plural: plural, form: form) {
+            VStack(alignment: .leading, spacing: 1) {
+                speakable(ex.russian, font: Fonts.reading(15), color: Palette.ink.opacity(0.85))
+                Text(ex.french).font(Fonts.italic(12)).foregroundStyle(Palette.pen)
+            }
+        } else {
+            Color.clear.frame(height: 1)
+        }
     }
 
     private var adjectiveTable: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            grid(nil, columns: ["masc.", "neut.", "fem.", "plural"], rows: zip(Self.caseLabels, Grammar.cases).map { label, c in
-                (label, [cell([c, "masculine"], excluding: ["plural"]), cell([c, "neuter"], excluding: ["plural"]),
-                         cell([c, "feminine"], excluding: ["plural"]), cell([c, "plural"])])
-            })
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Spacer().frame(maxWidth: .infinity)
+                ForEach(["masc.", "neut.", "fem.", "plural"], id: \.self) {
+                    Eyebrow($0).frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .padding(.bottom, 6)
+            Rule()
+            ForEach(Array(Grammar.cases.enumerated()), id: \.offset) { i, c in
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(String(Self.caseNames[i].prefix(4)) + ".").font(.system(size: 13, weight: .semibold))
+                        Text(CaseExamples.question(c)).font(Fonts.italic(11)).foregroundStyle(Palette.margin)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    ForEach([["masculine"], ["neuter"], ["feminine"], ["plural"]], id: \.self) { g in
+                        speakable(cell([c] + g, excluding: g == ["plural"] ? [] : ["plural"]), font: Fonts.reading(16))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+                .padding(.vertical, 10)
+                Rule()
+            }
             let short = cell(["short-form"])
             if short != "—" { labelled("Short forms", short) }
             let comp = cell(["comparative"])
@@ -412,47 +474,64 @@ struct FormsTable: View {
         }
     }
 
-    private var verbTables: some View {
+    private var verbTable: some View {
         let tense = entry.aspect == "perfective" ? "future" : "present"
         let persons = [("я", ["first-person", "singular"]), ("ты", ["second-person", "singular"]),
-                       ("он/она", ["third-person", "singular"]), ("мы", ["first-person", "plural"]),
-                       ("вы", ["second-person", "plural"]), ("они", ["third-person", "plural"])]
-        return VStack(alignment: .leading, spacing: 18) {
-            grid(tense == "future" ? "Future" : "Present", columns: [""], rows: persons.map { p, tags in
-                (p, [cell([tense] + tags, excluding: ["participle"])])
-            })
-            grid("Past", columns: [""], rows: [
-                ("он", [cell(["past", "masculine"], excluding: ["participle"])]),
-                ("она", [cell(["past", "feminine"], excluding: ["participle"])]),
-                ("оно", [cell(["past", "neuter"], excluding: ["participle"])]),
-                ("они", [cell(["past", "plural"], excluding: ["participle"])]),
-            ])
-            grid("Imperative", columns: [""], rows: [
-                ("ты", [cell(["imperative", "singular"])]),
-                ("вы", [cell(["imperative", "plural"])]),
-            ])
+                       ("он, она́", ["third-person", "singular"]), ("мы", ["first-person", "plural"]),
+                       ("вы", ["second-person", "plural"]), ("они́", ["third-person", "plural"])]
+        let past = [("он", "masculine"), ("она́", "feminine"), ("оно́", "neuter"), ("они́", "plural")]
+        return VStack(alignment: .leading, spacing: 0) {
+            Eyebrow(tense == "future" ? "Future (perfective)" : "Present", color: Palette.margin).padding(.vertical, 8)
+            Rule()
+            ForEach(Array(persons.enumerated()), id: \.offset) { _, item in
+                verbRow(item.0, cell([tense] + item.1, excluding: ["participle"]))
+            }
+            Eyebrow("Past", color: Palette.margin).padding(.top, 20).padding(.bottom, 8)
+            Rule()
+            ForEach(Array(past.enumerated()), id: \.offset) { _, item in
+                verbRow(item.0, cell(["past", item.1], excluding: ["participle"]))
+            }
+            Eyebrow("Imperative", color: Palette.margin).padding(.top, 20).padding(.bottom, 8)
+            Rule()
+            verbRow("(ты)", cell(["imperative", "singular"]))
+            verbRow("(вы)", cell(["imperative", "plural"]))
             let participles = forms.filter { $0.tags.contains("participle") }
             if !participles.isEmpty {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Participles").font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-                    ForEach(participles, id: \.self) { f in
-                        HStack {
-                            Text(f.word).font(Fonts.reading(16))
-                            Spacer()
-                            Text(Grammar.describe(f.tags)).font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
-                        }
+                Eyebrow("Participles", color: Palette.margin).padding(.top, 20).padding(.bottom, 8)
+                Rule()
+                ForEach(participles, id: \.self) { f in
+                    HStack(alignment: .firstTextBaseline) {
+                        speakable(f.word, font: Fonts.reading(18))
+                        Spacer()
+                        Text(Grammar.describe(f.tags)).font(Fonts.italic(13)).foregroundStyle(Palette.muted)
                     }
+                    .padding(.vertical, 8)
+                    Rule()
                 }
-                .padding(14)
-                .card(radius: 16)
             }
+        }
+    }
+
+    /// "я чита́ю" on one line, the pronoun quiet and the form in ink.
+    private func verbRow(_ pronoun: String, _ form: String) -> some View {
+        VStack(spacing: 0) {
+            HStack(alignment: .firstTextBaseline, spacing: 12) {
+                Text(pronoun).font(Fonts.italic(17)).foregroundStyle(Palette.muted).frame(width: 80, alignment: .leading)
+                Text(form).font(Fonts.reading(20)).foregroundStyle(Palette.ink)
+                Spacer()
+            }
+            .padding(.vertical, 9)
+            .contentShape(Rectangle())
+            .onTapGesture { if form != "—" { Speech.shared.say("\(RussianText.stripStress(pronoun)) \(first(form))", slow: true) } }
+            Rule()
         }
     }
 
     private func labelled(_ title: String, _ value: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(title).font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-            Text(value).font(Fonts.reading(17)).foregroundStyle(Palette.ink)
+            Eyebrow(title, color: Palette.margin)
+            speakable(value, font: Fonts.reading(18))
         }
+        .padding(.top, 18)
     }
 }

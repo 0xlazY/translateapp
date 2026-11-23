@@ -48,6 +48,9 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
+        # Story narration keeps playing with the screen locked.
+        UIBackgroundModes:
+          - audio
         ITSAppUsesNonExemptEncryption: false
 schemes:
   Pandouchka:

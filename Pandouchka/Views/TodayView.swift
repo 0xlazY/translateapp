@@ -1,4 +1,3 @@
-import Charts
 import SwiftData
 import SwiftUI
 import PandouchkaCore
@@ -17,39 +16,34 @@ struct TodayView: View {
     @State private var showSettings = false
     @State private var openWord: DictEntry?
 
-    private var streak: Int {
-        let cal = Calendar.current
-        let days = Set(logs.map { cal.dateComponents([.year, .month, .day], from: $0.date) })
-        return Streak.days(activeDays: days, today: Date(), calendar: cal)
-    }
-
-    private var reviewedToday: Int {
-        let start = Calendar.current.startOfDay(for: Date())
-        return logs.prefix { $0.date >= start }.count
-    }
-
-    private var nextStory: Story? {
+    private var nextStory: (Int, Story)? {
         let done = Set(progress.filter { $0.completedAt != nil }.map(\.storyID))
-        return StoryLibrary.all.first { !done.contains($0.id) }
+        return StoryLibrary.all.enumerated().first { !done.contains($0.element.id) }.map { ($0.offset + 1, $0.element) }
     }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    header
-                    reviewCard
-                    if let story = nextStory { continueCard(story) }
-                    if let w = wordOfDay { wordCard(w) }
-                    activityCard
+                VStack(alignment: .leading, spacing: 0) {
+                    dateHeader
+                    section("To review") { reviewBlock }
+                    if let next = nextStory {
+                        section("Next story") { storyBlock(next.0, next.1) }
+                    }
+                    if let w = wordOfDay {
+                        section("Word of the day") { wordBlock(w) }
+                    }
+                    section("Last fourteen days") { activityStrip }
                 }
-                .padding(.horizontal, 18)
-                .padding(.bottom, 30)
+                .padding(.leading, 44)
+                .padding(.trailing, 20)
+                .padding(.bottom, 40)
             }
-            .background(Palette.paper.ignoresSafeArea())
+            .background(NotebookPaper())
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { showSettings = true } label: { Image(systemName: "gearshape") }
+                    Button { showSettings = true } label: { Image(systemName: "slider.horizontal.3") }
+                        .tint(Palette.ink)
                 }
             }
             .sheet(isPresented: $showSettings) { SettingsView() }
@@ -67,120 +61,84 @@ struct TodayView: View {
         if wordOfDay == nil { wordOfDay = RussianDictionary.shared.wordOfTheDay() }
     }
 
-    private var greeting: (String, String) {
-        switch Calendar.current.component(.hour, from: Date()) {
-        case 5..<12: return ("Доброе утро", "Good morning")
-        case 12..<18: return ("Добрый день", "Good afternoon")
-        case 18..<23: return ("Добрый вечер", "Good evening")
-        default: return ("Доброй ночи", "Good night")
+    private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Eyebrow(title)
+            content()
+            Rule().padding(.top, 10)
+        }
+        .padding(.top, 22)
+    }
+
+    private var dateHeader: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(Date().formatted(.dateTime.weekday(.wide).day().month(.wide).locale(Locale(identifier: "en_GB"))))
+                .font(Fonts.italic(15))
+                .foregroundStyle(Palette.pen)
+            Text(Date().russianDay)
+                .font(Fonts.display(34))
+                .foregroundStyle(Palette.ink)
+                .onTapGesture { Speech.shared.say(Date().russianDay) }
+        }
+        .padding(.top, 12)
+    }
+
+    private var reviewBlock: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Text("\(due)")
+                    .font(Fonts.display(56, weight: .regular))
+                    .foregroundStyle(due > 0 ? Palette.pen : Palette.muted)
+                    .contentTransition(.numericText())
+                Text(due == 1 ? "card waiting" : "cards waiting")
+                    .font(Fonts.italic(17))
+                    .foregroundStyle(Palette.muted)
+            }
+            if cards.isEmpty {
+                Text("Tap a word in a story and add it: it will show up here.")
+                    .font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
+            } else if due > 0 {
+                Button("Review now") { router.reviewing = true }
+                    .buttonStyle(InkButtonStyle())
+            } else {
+                Text("Nothing left for today. \(cards.count) words in your deck.")
+                    .font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
+            }
         }
     }
 
-    private var header: some View {
-        HStack(alignment: .center, spacing: 14) {
-            Image("Logo")
-                .resizable()
-                .frame(width: 58, height: 58)
-                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-            VStack(alignment: .leading, spacing: 2) {
-                Text(greeting.0).font(Fonts.display(28))
-                    .foregroundStyle(Palette.ink)
-                    .onTapGesture { Speech.shared.say(greeting.0) }
-                Text(greeting.1).font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
-            }
-            Spacer()
-            VStack(spacing: 0) {
-                Image(systemName: streak > 0 ? "flame.fill" : "flame")
-                    .font(.title2)
-                    .foregroundStyle(streak > 0 ? Palette.red : Palette.muted)
-                Text("\(streak)").font(Fonts.ui(.headline, weight: .bold)).foregroundStyle(Palette.ink)
-            }
-            .accessibilityLabel("\(streak) day streak")
-        }
-        .padding(.top, 8)
-    }
-
-    private var reviewCard: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Flashcards").font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-                    Text(due == 0 ? "All caught up" : "\(due) to review")
-                        .font(Fonts.display(30))
-                        .foregroundStyle(Palette.ink)
-                    Text(cards.isEmpty ? "Tap words in a story to start your deck." : "\(cards.count) words in your deck · \(reviewedToday) reviewed today")
-                        .font(Fonts.ui(.footnote))
-                        .foregroundStyle(Palette.muted)
+    private func storyBlock(_ n: Int, _ story: Story) -> some View {
+        Button { router.tab = .stories } label: {
+            HStack(alignment: .firstTextBaseline, spacing: 14) {
+                Text(String(format: "%02d", n))
+                    .font(Fonts.display(30, weight: .light))
+                    .foregroundStyle(Palette.margin)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(story.title).font(Fonts.display(22)).foregroundStyle(Palette.ink)
+                    Text(story.titleFr).font(Fonts.italic(15)).foregroundStyle(Palette.muted)
                 }
                 Spacer()
-                ProgressRing(progress: cards.isEmpty ? 0 : Double(reviewedToday) / Double(max(reviewedToday + due, 1)))
-                    .frame(width: 64, height: 64)
+                Image(systemName: "arrow.right").foregroundStyle(Palette.pen)
             }
-            Button {
-                router.reviewing = true
-            } label: {
-                Label(due == 0 ? "Nothing due" : "Start review", systemImage: "play.fill")
-            }
-            .buttonStyle(PrimaryButtonStyle(color: due == 0 ? Palette.muted : Palette.blue))
-            .disabled(due == 0)
-        }
-        .padding(18)
-        .card()
-    }
-
-    private func continueCard(_ story: Story) -> some View {
-        Button {
-            router.tab = .stories
-        } label: {
-            HStack(spacing: 14) {
-                StoryCover(story: story, size: 64)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Next story · \(story.level.rawValue)").font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-                    Text(story.title).font(Fonts.display(20)).foregroundStyle(Palette.ink)
-                    Text(story.titleFr).font(Fonts.ui(.footnote)).foregroundStyle(Palette.muted)
-                }
-                Spacer()
-                Image(systemName: "chevron.right").foregroundStyle(Palette.muted)
-            }
-            .padding(14)
-            .card()
         }
         .buttonStyle(.plain)
     }
 
-    private func wordCard(_ w: DictEntry) -> some View {
+    private func wordBlock(_ w: DictEntry) -> some View {
         Button { openWord = w } label: {
-            HStack(spacing: 0) {
-                Tricolor(axis: .russian).frame(width: 6)
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Word of the day").font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(w.word).font(Fonts.display(30)).foregroundStyle(Palette.ink)
-                        Text(w.grammarLine).font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
-                    }
-                    Text(w.shortFrench).font(Fonts.ui(.body)).foregroundStyle(Palette.ink.opacity(0.85)).lineLimit(2)
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(w.word).font(Fonts.display(28)).foregroundStyle(Palette.ink)
+                    Text(w.grammarLine).font(Fonts.italic(14)).foregroundStyle(Palette.muted)
                 }
-                .padding(16)
-                Spacer()
-                Button {
-                    Speech.shared.say(w.word)
-                } label: {
-                    Image(systemName: "speaker.wave.2.fill").padding(16)
-                }
+                Text(w.shortFrench).font(Fonts.reading(17)).foregroundStyle(Palette.pen).lineLimit(2)
+                    .multilineTextAlignment(.leading)
             }
-            .card()
-            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
         }
         .buttonStyle(.plain)
     }
 
-    private struct DayCount: Identifiable {
-        let day: Date
-        let count: Int
-        var id: Date { day }
-    }
-
-    private var lastTwoWeeks: [DayCount] {
+    private var activityStrip: some View {
         let cal = Calendar.current
         let today = cal.startOfDay(for: Date())
         var counts: [Date: Int] = [:]
@@ -189,41 +147,19 @@ struct TodayView: View {
             if today.timeIntervalSince(d) > 14 * 86_400 { break }
             counts[d, default: 0] += 1
         }
-        return (0..<14).reversed().compactMap { offset in
-            cal.date(byAdding: .day, value: -offset, to: today).map { DayCount(day: $0, count: counts[$0] ?? 0) }
-        }
-    }
-
-    private var activityCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Last two weeks").font(Fonts.ui(.caption, weight: .semibold)).foregroundStyle(Palette.muted).textCase(.uppercase)
-            Chart(lastTwoWeeks) { d in
-                BarMark(x: .value("Day", d.day, unit: .day), y: .value("Reviews", d.count))
-                    .foregroundStyle(Calendar.current.isDateInToday(d.day) ? Palette.red : Palette.blue)
-                    .cornerRadius(4)
-            }
-            .chartXAxis {
-                AxisMarks(values: .stride(by: .day, count: 2)) { _ in
-                    AxisValueLabel(format: .dateTime.weekday(.narrow))
+        let days = (0..<14).reversed().compactMap { cal.date(byAdding: .day, value: -$0, to: today) }
+        return HStack(spacing: 5) {
+            ForEach(days, id: \.self) { d in
+                let c = counts[d] ?? 0
+                VStack(spacing: 4) {
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(c == 0 ? Palette.rule : Palette.pen.opacity(min(0.3 + Double(c) / 40, 1)))
+                        .frame(height: 18)
+                    Text(d.formatted(.dateTime.weekday(.narrow).locale(Locale(identifier: "ru_RU"))))
+                        .font(.system(size: 9))
+                        .foregroundStyle(cal.isDateInToday(d) ? Palette.margin : Palette.muted)
                 }
             }
-            .frame(height: 120)
-        }
-        .padding(18)
-        .card()
-    }
-}
-
-struct ProgressRing: View {
-    var progress: Double
-    var body: some View {
-        ZStack {
-            Circle().stroke(Palette.sunken, lineWidth: 8)
-            Circle()
-                .trim(from: 0, to: min(max(progress, 0), 1))
-                .stroke(AngularGradient(colors: [Palette.blue, Palette.red], center: .center), style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-            Text("\(Int((progress * 100).rounded()))%").font(Fonts.ui(.caption, weight: .bold)).foregroundStyle(Palette.ink)
         }
     }
 }

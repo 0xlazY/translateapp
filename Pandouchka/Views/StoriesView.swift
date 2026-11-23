@@ -2,149 +2,124 @@ import SwiftData
 import SwiftUI
 import PandouchkaCore
 
+/// The story list, laid out like the contents page of a reader.
 struct StoriesView: View {
     @Query private var progress: [StoryProgress]
     @Query private var cards: [Card]
     @Query private var known: [KnownWord]
-    @State private var level: Level? = nil
-
-    private var stories: [Story] {
-        StoryLibrary.all.filter { level == nil || $0.level == level }
-    }
 
     private var familiarKeys: Set<String> {
         Set(cards.map(\.key)).union(known.map(\.key))
     }
 
+    private var levels: [Level] {
+        Level.allCases.filter { l in StoryLibrary.all.contains { $0.level == l } }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    levelPicker
-                    ForEach(Level.allCases.filter { l in stories.contains { $0.level == l } }, id: \.self) { l in
-                        Text(levelTitle(l))
-                            .font(Fonts.display(22))
-                            .foregroundStyle(Palette.ink)
-                            .padding(.top, 6)
-                        ForEach(stories.filter { $0.level == l }) { story in
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Contents")
+                        .font(Fonts.display(38))
+                        .foregroundStyle(Palette.ink)
+                        .padding(.top, 8)
+                    Text("Оглавление")
+                        .font(Fonts.italic(16))
+                        .foregroundStyle(Palette.pen)
+                        .padding(.bottom, 8)
+                    let familiar = familiarKeys
+                    ForEach(levels, id: \.self) { level in
+                        HStack(alignment: .firstTextBaseline) {
+                            Eyebrow(level.rawValue, color: Palette.margin)
+                            Eyebrow(levelTitle(level))
+                        }
+                        .padding(.top, 26)
+                        .padding(.bottom, 6)
+                        ForEach(numbered(level)) { item in
+                            let story = item.story
                             NavigationLink(value: story) {
-                                StoryRow(story: story, progress: progress.first { $0.storyID == story.id },
-                                         familiar: familiarKeys)
+                                ContentsRow(number: item.number, story: story,
+                                            done: progress.first { $0.storyID == story.id }?.completedAt != nil,
+                                            familiar: familiar)
                             }
                             .buttonStyle(.plain)
+                            Rule()
                         }
                     }
                 }
-                .padding(.horizontal, 18)
-                .padding(.bottom, 30)
+                .padding(.leading, 44)
+                .padding(.trailing, 20)
+                .padding(.bottom, 40)
             }
-            .background(Palette.paper.ignoresSafeArea())
-            .navigationTitle("Stories")
+            .background(NotebookPaper())
             .navigationDestination(for: Story.self) { ReaderView(story: $0) }
+            .toolbar(.hidden, for: .navigationBar)
         }
+    }
+
+    struct NumberedStory: Identifiable {
+        let number: Int
+        let story: Story
+        var id: String { story.id }
+    }
+
+    private func numbered(_ level: Level) -> [NumberedStory] {
+        StoryLibrary.all.enumerated().filter { $0.element.level == level }
+            .map { NumberedStory(number: $0.offset + 1, story: $0.element) }
     }
 
     private func levelTitle(_ l: Level) -> String {
         switch l {
-        case .a1: return "A1 · First steps"
-        case .a2: return "A2 · Everyday life"
-        case .b1: return "B1 · Independent"
+        case .a1: return "First steps"
+        case .a2: return "Everyday life"
+        case .b1: return "On your own"
         }
-    }
-
-    private var levelPicker: some View {
-        HStack(spacing: 8) {
-            levelButton(nil, "All")
-            ForEach(Level.allCases.filter { l in StoryLibrary.all.contains { $0.level == l } }, id: \.self) { l in
-                levelButton(l, l.rawValue)
-            }
-            Spacer()
-        }
-    }
-
-    private func levelButton(_ l: Level?, _ title: String) -> some View {
-        Button { withAnimation(.snappy) { level = l } } label: {
-            Chip(text: title, color: Palette.ink, filled: level == l)
-        }
-        .buttonStyle(.plain)
     }
 }
 
-struct StoryCover: View {
+struct ContentsRow: View {
+    let number: Int
     let story: Story
-    var size: CGFloat = 76
-    var body: some View {
-        let c = Palette.theme(story.theme)
-        ZStack {
-            LinearGradient(colors: [c.opacity(0.85), c], startPoint: .topLeading, endPoint: .bottomTrailing)
-            // Diagonal stripes, a quiet echo of the flags.
-            GeometryReader { g in
-                Path { p in
-                    let step: CGFloat = size / 5
-                    var x: CGFloat = -g.size.height
-                    while x < g.size.width {
-                        p.move(to: CGPoint(x: x, y: g.size.height))
-                        p.addLine(to: CGPoint(x: x + g.size.height, y: 0))
-                        x += step
-                    }
-                }
-                .stroke(Color.white.opacity(0.10), lineWidth: size / 14)
-            }
-            Text(story.emoji).font(.system(size: size * 0.46))
-        }
-        .frame(width: size, height: size)
-        .clipShape(RoundedRectangle(cornerRadius: size * 0.26, style: .continuous))
-    }
-}
-
-struct StoryRow: View {
-    let story: Story
-    let progress: StoryProgress?
+    let done: Bool
     let familiar: Set<String>
 
-    private var coverage: Double {
+    private var coverage: Int {
         let keys = story.wordKeys
         guard !keys.isEmpty else { return 0 }
-        // Count a word as familiar if its own spelling or its dictionary form is known.
         let hits = keys.filter { k in
             familiar.contains(k) || (RussianDictionary.shared.lookup(k).first.map { familiar.contains($0.entry.key) } ?? false)
         }
-        return Double(hits.count) / Double(keys.count)
+        return Int((Double(hits.count) / Double(keys.count) * 100).rounded())
     }
 
     var body: some View {
-        HStack(spacing: 14) {
-            StoryCover(story: story)
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 6) {
-                    Text(story.title).font(Fonts.display(19)).foregroundStyle(Palette.ink)
-                    if progress?.completedAt != nil {
-                        Image(systemName: "checkmark.seal.fill").foregroundStyle(Palette.green)
-                    }
-                }
-                Text(story.titleFr).font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted)
-                HStack(spacing: 8) {
-                    Text("\(story.wordCount) words").font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
-                    CoverageBar(value: coverage).frame(width: 60, height: 5)
-                    Text("\(Int(coverage * 100))% familiar").font(Fonts.ui(.caption)).foregroundStyle(Palette.muted)
-                }
-                .padding(.top, 2)
+        HStack(alignment: .firstTextBaseline, spacing: 14) {
+            Text(String(format: "%02d", number))
+                .font(Fonts.display(22, weight: .light))
+                .foregroundStyle(done ? Palette.muted : Palette.margin)
+                .frame(width: 32, alignment: .leading)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(story.title)
+                    .font(Fonts.display(20))
+                    .foregroundStyle(Palette.ink)
+                Text(story.titleFr)
+                    .font(Fonts.italic(15))
+                    .foregroundStyle(Palette.muted)
             }
-            Spacer(minLength: 0)
-        }
-        .padding(12)
-        .card()
-    }
-}
-
-struct CoverageBar: View {
-    var value: Double
-    var body: some View {
-        GeometryReader { g in
-            ZStack(alignment: .leading) {
-                Capsule().fill(Palette.sunken)
-                Capsule().fill(Palette.green).frame(width: g.size.width * min(max(value, 0), 1))
+            Spacer(minLength: 8)
+            VStack(alignment: .trailing, spacing: 3) {
+                if done {
+                    Text("read ✓").font(Fonts.italic(15)).foregroundStyle(Palette.pen)
+                } else {
+                    Text("\(story.wordCount) words").font(Fonts.italic(13)).foregroundStyle(Palette.muted)
+                }
+                if coverage > 0 {
+                    Text("\(coverage)% known").font(.system(size: 11)).foregroundStyle(Palette.muted)
+                }
             }
         }
+        .padding(.vertical, 14)
+        .contentShape(Rectangle())
     }
 }

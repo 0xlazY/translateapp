@@ -63,3 +63,30 @@ public struct Story: Codable, Identifiable, Hashable, Sendable {
 public struct StoryCollection: Codable, Sendable {
     public var stories: [Story]
 }
+
+/// When each line of a story's recording starts and ends (seconds), written by
+/// tools/make_audio.py next to the audio file as `<story id>.timings.json`.
+public struct StoryTiming: Codable, Sendable, Equatable {
+    public struct Span: Codable, Sendable, Equatable {
+        public var start: Double
+        public var end: Double
+        public init(start: Double, end: Double) { self.start = start; self.end = end }
+    }
+    public var voice: String
+    public var duration: Double
+    public var lines: [Span]
+
+    public init(voice: String, duration: Double, lines: [Span]) {
+        self.voice = voice
+        self.duration = duration
+        self.lines = lines
+    }
+
+    /// The line being read at `time`, or the last one started before it (during pauses).
+    public func line(at time: Double) -> Int? {
+        guard let first = lines.first, time >= first.start else { return nil }
+        var found = 0
+        for (i, l) in lines.enumerated() where l.start <= time { found = i }
+        return found
+    }
+}

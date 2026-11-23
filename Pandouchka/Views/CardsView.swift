@@ -49,24 +49,20 @@ struct CardsView: View {
             List {
                 Section {
                     stats
-                        .listRowInsets(EdgeInsets())
+                        .listRowInsets(EdgeInsets(top: 8, leading: 24, bottom: 12, trailing: 20))
                         .listRowBackground(Color.clear)
-                }
-                Section {
-                    Picker("Filter", selection: $filter) {
-                        ForEach(Filter.allCases) { Text($0.rawValue).tag($0) }
-                    }
-                    .pickerStyle(.segmented)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
                 }
                 Section {
                     if cards.isEmpty {
                         emptyState
+                            .listRowBackground(Color.clear)
                     }
                     ForEach(filtered) { card in
                         Button { editing = card } label: { CardRow(card: card) }
                             .buttonStyle(.plain)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparatorTint(Palette.rule)
                             .swipeActions {
                                 Button(role: .destructive) { CardStore.delete(card, in: context) } label: {
                                     Label("Delete", systemImage: "trash")
@@ -75,6 +71,7 @@ struct CardsView: View {
                     }
                 }
             }
+            .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .navigationTitle("Cards")
@@ -113,41 +110,41 @@ struct CardsView: View {
 
     private var stats: some View {
         let counts = Dictionary(grouping: cards, by: { bucket($0) }).mapValues(\.count)
-        return VStack(spacing: 14) {
-            HStack(spacing: 10) {
-                statTile("\(cards.count)", "words", Palette.ink)
-                statTile("\(counts[.new] ?? 0)", "new", Palette.red)
-                statTile("\(counts[.learning] ?? 0)", "learning", Palette.amber)
-                statTile("\(counts[.solid] ?? 0)", "solid", Palette.blue)
+        return VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text("\(cards.count)").font(Fonts.display(40, weight: .regular)).foregroundStyle(Palette.ink)
+                Text(cards.count == 1 ? "word" : "words").font(Fonts.italic(17)).foregroundStyle(Palette.muted)
             }
-            Button { router.reviewing = true } label: {
-                Label(due > 0 ? "Review \(due) now" : "Nothing due", systemImage: "play.fill")
+            HStack(spacing: 18) {
+                ForEach(Filter.allCases) { f in
+                    Button {
+                        withAnimation(.snappy) { filter = f }
+                    } label: {
+                        VStack(spacing: 2) {
+                            Text(f == .all ? f.rawValue : "\(f.rawValue) \(counts[f] ?? 0)")
+                                .font(filter == f ? Fonts.display(16) : Fonts.reading(16))
+                                .foregroundStyle(filter == f ? Palette.pen : Palette.muted)
+                            Rectangle().fill(filter == f ? Palette.pen : .clear).frame(height: 1.5)
+                        }
+                        .fixedSize()
+                    }
+                    .buttonStyle(.plain)
+                }
             }
-            .buttonStyle(PrimaryButtonStyle(color: due > 0 ? Palette.blue : Palette.muted))
-            .disabled(due == 0)
+            if due > 0 {
+                Button("Review \(due) now") { router.reviewing = true }
+                    .buttonStyle(InkButtonStyle())
+            }
         }
-        .padding(.vertical, 6)
-    }
-
-    private func statTile(_ value: String, _ label: String, _ color: Color) -> some View {
-        VStack(spacing: 2) {
-            Text(value).font(Fonts.display(24)).foregroundStyle(color)
-            Text(label).font(Fonts.ui(.caption2)).foregroundStyle(Palette.muted)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 12)
-        .card(radius: 16)
     }
 
     private var emptyState: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "rectangle.stack.badge.plus").font(.largeTitle).foregroundStyle(Palette.muted)
-            Text("No cards yet").font(Fonts.ui(.headline))
-            Text("Tap any word in a story or the dictionary, then “Add to cards”. You can also import a CSV list.")
-                .font(Fonts.ui(.footnote)).foregroundStyle(Palette.muted).multilineTextAlignment(.center)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("No cards yet.").font(Fonts.display(22)).foregroundStyle(Palette.ink)
+            Text("Tap any word in a story or the dictionary and add it. You can also import a CSV list with the ⇅ menu.")
+                .font(Fonts.italic(16)).foregroundStyle(Palette.muted)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 24)
+        .padding(.vertical, 20)
     }
 
     private var transferMenu: some View {
@@ -160,7 +157,7 @@ struct CardsView: View {
                 Button { export(csv: false) } label: { Label("Export full backup (JSON)", systemImage: "externaldrive") }
             }
         } label: {
-            Image(systemName: "arrow.up.arrow.down.circle")
+            Image(systemName: "arrow.up.arrow.down")
         }
     }
 
@@ -198,36 +195,25 @@ struct CardsView: View {
 struct CardRow: View {
     let card: Card
     var body: some View {
-        HStack(spacing: 12) {
-            MemoryBar(value: card.retrievability).frame(width: 4, height: 40)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(card.russian).font(Fonts.reading(19)).foregroundStyle(Palette.ink)
-                Text(card.french).font(Fonts.ui(.subheadline)).foregroundStyle(Palette.muted).lineLimit(1)
+        HStack(alignment: .center, spacing: 12) {
+            Circle()
+                .fill(card.retrievability.map(Palette.memory) ?? Palette.rule)
+                .frame(width: 7, height: 7)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(card.russian).font(Fonts.reading(20)).foregroundStyle(Palette.ink)
+                Text(card.french).font(Fonts.italic(15)).foregroundStyle(Palette.pen).lineLimit(1)
             }
             Spacer()
             if let s = card.schedule(.ruFr), s.phase != .new {
-                Text(s.due <= Date() ? "due" : IntervalFormat.short(from: Date(), to: s.due))
-                    .font(Fonts.ui(.caption))
-                    .foregroundStyle(s.due <= Date() ? Palette.red : Palette.muted)
+                Text(s.due <= Date() ? "today" : IntervalFormat.short(from: Date(), to: s.due))
+                    .font(Fonts.italic(13))
+                    .foregroundStyle(s.due <= Date() ? Palette.margin : Palette.muted)
             } else {
-                Chip(text: "new", color: Palette.red)
+                Text("new").font(Fonts.italic(13)).foregroundStyle(Palette.margin)
             }
         }
+        .padding(.vertical, 4)
         .contentShape(Rectangle())
-    }
-}
-
-struct MemoryBar: View {
-    var value: Double?
-    var body: some View {
-        GeometryReader { g in
-            ZStack(alignment: .bottom) {
-                Capsule().fill(Palette.sunken)
-                if let v = value {
-                    Capsule().fill(Palette.memory(v)).frame(height: g.size.height * v)
-                }
-            }
-        }
     }
 }
 
